@@ -39,7 +39,7 @@
 		  
 		  <label for="password"><b>Password</b></label>
 		  <br/>
-		  <input type="password" name="password" id="password" minlength="8" pattern="(?=.*[a-zA-Z])(?=.*[0-9]).*" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required>
+		  <input type="password" name="password" id="password" minlength="8" pattern="(?=.[a-zA-Z])(?=.[0-9]).*" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required>
 		  <br/>
 
           <label for="confirm_password"><b>Confirm Password</b></label>
@@ -109,6 +109,8 @@
 
 </div>
 
+
+<!-- Configuration -->
 <div id="configuration" style="display:none;">configuration
     <br/>
     <br/><br/><br/><br/><br/>
@@ -116,17 +118,16 @@
 </div>
 
 
-
 <!-- Play Game -->
 <div id="play_game" style="display:none;"> 
-  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-  <div class="game_middle" class="game_screen">
-  <canvas id = "Canvas" width = "512" height = "480"></canvas>
-  </div>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <div class="game_middle" class="game_screen">
+    <canvas id = "Canvas" width = "512" height = "480"></canvas>
+    </div>
 
-  <!-- <div class="game_left" class="game_screen">  </div>
+    <!-- <div class="game_left" class="game_screen">  </div>
 
-  <div class="game_right" class="game_screen">  </div> -->
+    <div class="game_right" class="game_screen">  </div> -->
 </div>
 
 
@@ -208,4 +209,4 @@
 
 
 </body>
-</html> 
+</html>

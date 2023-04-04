@@ -172,13 +172,11 @@ function isUserValid(user, pass) {
   }
 
 
-
 //variables
 
 var intervalTimer;
 var then;
 var keysDown;
-
 // Play Game
 function StartGame(){
 toggleDiv("play_game"); 

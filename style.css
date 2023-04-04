@@ -109,9 +109,9 @@ input[type=text], input[type=password] {
     vertical-align: center;
   }
 
-
-  /* Canvas */
-  #canvas{
+/* Canvas */
+#Canvas{
+	background-color: black;
 	border-color: black;
     border: 1px solid #000; 
     position:absolute;
@@ -122,3 +122,8 @@ input[type=text], input[type=password] {
     right:0;
     left:0;
   }
+
+  /* .game_screen{
+	display:inline-block;
+	width:
+  } */
