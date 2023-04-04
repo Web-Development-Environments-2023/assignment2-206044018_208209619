@@ -109,9 +109,8 @@ input[type=text], input[type=password] {
     vertical-align: center;
   }
 
-
-  /* Canvas */
-  #Canvas{
+/* Canvas */
+#Canvas{
 	background-color: black;
 	border-color: black;
     border: 1px solid #000; 
