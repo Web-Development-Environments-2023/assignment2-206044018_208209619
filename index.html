@@ -1,1 +1,148 @@
-<!--  -->
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+
+
+<!-- Welcome -->
+
+<div class="welcome" id="Welcome_div" style="display:block;">
+    <button class="item" onclick="toggleDiv('sign_in')">Signup</button>
+    <button class="item" onclick="toggleDiv('log_in')">Login</button>
+</div>
+
+<!-- Menu -->
+
+  <div id="menu"  style="display:none;">
+    <div class="toolbar" >
+
+      <button class="item" onclick="toggleDiv('Welcome_div')">Welcome</button>
+      <!-- <button class="item" onclick="model_dialog_open()">About</button> -->
+    </div>
+  </div>
+ 
+
+<div id="sign_in" style="display:none;">
+    hi my nsame 
+</div>
+
+
+<!-- Log in -->
+
+<div id="log_in" style="display:none;">
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <div class="container">
+        <ul>
+        <li>
+        <label for="uname"><b>Username</b></label>
+        <input id="uname" type="text" placeholder="Enter Username" name="uname" required>
+    </li>
+    <li>
+        <label for="psw"><b>Password</b></label>
+        <input id="psw" type="password" placeholder="Enter Password" name="psw" required>
+    </li>
+    <li>
+        <button type="button" onclick="LogIn()">Login</button>
+    </li>
+    </ul>
+      </div>
+
+
+</div>
+
+<div id="configuration" style="display:none;">configuration
+    <br/>
+    <br/><br/><br/><br/><br/>
+    <button type="button" onclick="StartGame()">Play Game</button>
+</div>
+
+
+<!-- Play Game -->
+<div id="play_game" style="display:none;"> 
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <canvas id = "theCanvas" width = "512" height = "480"></canvas>
+</div>
+
+
+
+
+<div id="score" style="display:none;"> score</div>
+
+<!-- Model Dialog -->
+
+<div id="model_dialog" class="model">
+    <dialog id="myDialog"> 
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+          </div>
+           Hello model.
+           
+           <button class="item" onclick="model_dialog_close()">Close</button>
+           <!-- esc -->
+           <!-- לחיצה על המסך -->
+
+    </dialog>
+
+</div>
+
+
+
+<!-- Contact -->
+<div id="contact" class="contact"  style="display:none;">>
+
+<br/>
+
+<form> Contact me:
+<div class="container">
+
+    <div class="mail">
+    <br/>
+    <li><label for="email">Email:</label>
+    <input type="email" id="email" name="email" required></li>
+    </div>   
+
+    <div class="message">
+    <br/>
+    <li><label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea></li>
+    </div>
+
+    <div class="smile">
+    <br/>
+    <li>
+        <label for="smile"> Smile:</label>
+            <select id="smile" name="smile" oninput="addSmileToMessage()">
+            <option value="&#128517;">😅	</option>
+            <option value="&#128522;">😊</option>
+            <option value="&#128536;">😘</option>
+            <option value="&#128515;">😀</option>
+            <option value="&#128557;">😭</option>
+            <option value="&#128553;">😩</option>
+            <option value="&#128542;">😞</option>
+            <option value="&#128561;">😱</option>
+            <option value="&#128151;">💗</option>
+            <option value="&#128540;">😜</option>
+            <option value="&#128077;">👍</option>
+            <option value="&#128078;">👎</option>
+    
+            </select>
+    </li>
+    </div>
+
+</div>
+<div>
+<input type="button" value="Send Email" onclick="mailSend()" value="Send" >
+</div>
+</form> 
+<br/>
+<br/>
+</div>
+  <script type="text/javascript" src="spaceships.js"></script>
+</body>
+</html> 
