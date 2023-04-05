@@ -75,137 +75,96 @@ function isUserValid(user, pass) {
     return false;
   }
 
+//  ------------- Sign in ------------- 
 
-
-//variables
-
-	var intervalTimer;
-	var then;
-	var keysDown;
-  var playerSizeWidht = 20;
-  var playerSizeHigh = 20;
-
-  // Play Game
-  function StartGame(){
-    toggleDiv("play_game"); 
-    setupGame();
-  }
-
-  function setupGame(){
-  var canvas = document.getElementById("Canvas");
-  var context = canvas.getContext("2d");
-  
-
-
-  	
-	// Hero image
-	var spacehero = new Object();
-  spacehero.speed = 256;
-	var spaceheroImage;
-	spaceheroImage = new Image();
-	spaceheroImage.src = "photos/spaceship.jpg";
-
-	var boomball;
-	var ballImage;
-	ballImage = new Image();
-	ballImage.src = "photos/boomball.jpg";
-
-
-	// Game objects
-
-	// Handle keyboard controls
-	keysDown = {};
-
-	// Check for keys pressed where key represents the keycode captured
-	addEventListener("keydown", function (e) {keysDown[e.keyCode] = true;}, false);
-
-	addEventListener("keyup", function (e) {delete keysDown[e.keyCode];}, false);
-  newGame();
-  
-  // };
-  
-//   document.getElementById("btn").addEventListener("click", move, false);
-  function newGame() {
-	  reset();
-    then = Date.now();
-	  intervalTimer = setInterval(main, 1);
-  };
-
-  // Reset the player and bad spaceships positions when player start new game
-
-  function reset(){
-  // Reset player's position to centre of canvas
-  spacehero.x = canvas.width / 2;
-  spacehero.y = canvas.height-20;
-
-};
-
-
-
-  function main() {
-
-	var now = Date.now();
-	var delta = now - then;
-	updatePositions(delta / 1000);
-	draw();	
-	then = now;
-	
-  };
-
-
-  // Update game objects - change player position based on key pressed
-
-  function updatePositions(modifier) {	
-
-	// if ((32 in keysDown) ) { // boom up
-	// 	boomball.x = spacehero.x;
-	// 	boomball.y = spacehero.y;
-	// 	intervalTimer = setInterval(drawBall, 1);
-	// }
-
-	if ((38 in keysDown) ) { // Player holding up
-		if(spacehero.y > canvas.height - (canvas.height * 0.4))
-		spacehero.y -= spacehero.speed * modifier;
-	}
-	if ((40 in keysDown) ) { // Player holding down
-		if(spacehero.y<=canvas.height-20)
-		spacehero.y += spacehero.speed * modifier;
-	}
-
-	if (37 in keysDown) { // Player holding left
-		if(spacehero.x>=0)
-		spacehero.x -= spacehero.speed * modifier;
-	}
-	if (39 in keysDown) { // Player holding right
-		if(spacehero.x<=canvas.width-20)
-		spacehero.x += spacehero.speed * modifier;	
-	}
-
-
-
-  };
-
-  // function drawBall(){
-	// boomball.y = boomball.y - 10;
-	// draw();
-	// context.drawImage(ballImage, boomball.x, boomball.y,20, 20);
-  // }
-
-  
-
-  function draw() {
-	  // draw a circle
-	  context.clearRect(0, 0, canvas.width, canvas.height);
-
-	  context.drawImage(spaceheroImage, spacehero.x, spacehero.y,playerSizeWidht, playerSizeHigh);
-  };
-  }
-
-  // terminate interval timer
-function stopTimer()
-{
-  
-   window.clearInterval( intervalTimer );
-} 
-  window.addEventListener("load", setupGame, false)
-// };
+// // Validation of Sign Up 
+// $(document).ready(function() {
+// 	$("#sign_in_form").validate({
+// 		rules: {
+// 			username: {
+// 				required: true,
+// 				isUserExist: true
+// 			},
+// 			password: {
+//                 required: true,
+//                 minlength: 8,
+// 				pattern: true
+// 			},
+//             confirm_password: {
+//                 required: true,
+//                 equalTo: '#password',
+//                 minlength: 8,
+// 				pattern: true
+//               },
+// 			firstname: {
+// 				required: true,
+// 				lettersonly : true
+// 			},
+//             lastname: {
+// 				required: true,
+// 				lettersonly : true
+// 			},
+// 			email: {
+// 				required: true,
+// 				email: true
+// 			},
+// 			birthday: {
+// 				required: true
+// 			}
+// 		},
+// 		messages: {
+// 			username: {
+// 				required: "Please enter a valid User Name",
+// 				isUserExist: "The User Name already exist, Enter new valid User Name"
+// 			},
+// 			password: {
+// 				required: "Please enter a valid Password",
+//                 minlength: "Password must be at least 8 characters long",
+// 				pattern: "Password must contain at least one letter and one number"
+// 			},
+//             confirm_password:{
+//                 requied: "Please enter a Confirmation Password",
+//                 equalTo:"Passwords must match",
+//                 minlength: "Password must be at least 8 characters long",
+// 				pattern: "Password must contain at least one letter and one number"
+               
+//             },
+// 			firstname: {
+// 				required: "Please enter your First Name",
+// 				lettersonly: "Your name must contain letters only"
+// 			},
+//             lastname: {
+// 				required: "Please enter your Name Name",
+// 				lettersonly: "Your name must contain letters only"
+// 			},
+// 			email: {
+// 				required: "Please enter a password",
+// 				email: "Invalid email address, Please enter a valid email address"
+// 			},
+// 			birthday: {
+// 				required: "Please enter your birthday"
+// 			}
+// 		},
+// 		submitHandler: function() {
+//             // TO DO: check if the new user added to the database and if the form reset automaticly without the code
+// 			let user1 = document.getElementById("username").value;
+// 			let password1 = document.getElementById("password").value;
+// 			database.push({
+//                 username: user1,
+//                 password: password1,
+//               },)
+// 			// let form = $("#sign_in_form");
+// 			// form[0].reset();
+// 			toggleDiv('log_in');
+// 		}
+// 	});
+// $(function() {
+// 	$.validator.addMethod('isUserExist', function (user) {
+// 		for (let i = 0; i < database.length; i++) {
+//             if (database[i].username == user) {
+// 			    return true;
+//             }
+//         return false;     
+//         }
+// 	});
+// });

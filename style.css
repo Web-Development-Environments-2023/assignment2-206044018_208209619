@@ -123,7 +123,15 @@ input[type=text], input[type=password] {
     left:0;
   }
 
-  /* .game_screen{
-	display:inline-block;
-	width:
-  } */
+  .game_middle{
+	width: 50%;
+	float: left;
+  }
+  .game_middle.down{
+	margin-right: 20px;
+  }
+
+  button{
+	background-color: black;
+	color: white;
+  }
