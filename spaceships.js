@@ -52,8 +52,7 @@ function model_dialog_close() {
 }
 
 
-// Log in
-
+//  ------------- log in ------------- 
 function LogIn(){
    
     // let user = document.getElementById("uname").value;
