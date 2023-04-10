@@ -1,3 +1,4 @@
+
 //variables
 var intervalTimer;
 var intervalTimer2;
@@ -20,7 +21,10 @@ var shotSpeed = 3;
 var shotSize = 5;
 var shotsArray;
 var lastShotTime;
-
+var shot;
+var speedCounter;
+var lastSpeedTime;
+var totalScore;
 //<-------Play Game------->
 function StartGame() {
     toggleDiv("play_game");
@@ -57,7 +61,6 @@ function init_player() {
     spacehero = new Object();
     spacehero.speed = 10;
 
-
     spaceheroImage = new Image(playerSizeWidht, playerSizeHigh);
     spaceheroImage.src = "photos/spaceship.jpg";
 
@@ -73,6 +76,7 @@ function init_enemies() {
     enemyImage = new Image(enemySizeWeight, enemySizeHeight);
     enemyImage.src = "photos/spaceship.jpg";
     let padding = 30;
+    let enemyScore=20;
     enemiesArray = new Array(4);
     for (let i = 0; i < enemiesArray.length; i++) {
         enemiesArray[i] = new Array(5);
@@ -88,8 +92,11 @@ function init_enemies() {
             enemiesArray[i][j].y = initPositionY;
             enemiesArray[i][j].alive = true;
             enemiesArray[i][j].image = enemyImage;
+            enemiesArray[i][j].score = enemyScore;
+            
         }
         initPositionY = initPositionY + enemySizeHeight + padding;
+        enemyScore-=5;
     }
 
 }
@@ -99,9 +106,8 @@ function init_enemies() {
 function new_game() {
     StartedGame = true;   ///To Do:  if the game stops = > change this to false
     reset();
-    draw_player(0, 0);
-    move_enemies();
-    shot_Enemies();
+    intervalTimer = setInterval(game_loop, 1000 / 60);
+
 };
 
 // Reset the player and bad spaceships positions when player start new game
@@ -114,7 +120,30 @@ function reset() {
     init_player();
     init_enemies();
     init_shotEnemies();
+    lastSpeedTime = 0;
+    speedCounter = 0;
+    totalScore = 0;
+
+
 };
+function updateSpeed() {
+    const currentSpeedTime = new Date().getTime(); // Get the current timestamp
+    const elapsedSpeedTime = currentSpeedTime - lastSpeedTime; // Calculate elapsed time since last shot
+    // if 5 seconds passed, speed of enemies rise
+    if (elapsedSpeedTime >= 5000 && speedCounter < 4) {
+        speedCounter += 1;
+        lastSpeedTime = currentSpeedTime;
+        enemySpeed += 1;
+    }
+}
+
+function game_loop() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    draw_player(spacehero.originX, spacehero.originY);
+    updateEnemiesPosition();
+    updateShotEnemies();
+    updateSpeed();
+}
 
 
 //<-------change player position based on key pressed------->
@@ -147,16 +176,6 @@ function updatePositions(keyBtn) {
     draw_player(x, y);
 
 };
-function shot_Enemies() {
-    intervalTimer2 = setInterval(update, 100);
-}
-
-
-//<------- move enemies ------->
-
-function move_enemies() {
-    intervalTimer = setInterval(updateEnemiesPosition, 100);
-}
 
 
 //<------- check enemies collision with border ------->
@@ -196,7 +215,7 @@ function checkEnemiesCollisionWithBorder(moveDirection) {
     return moveDirection;
 }
 
-//<------- update Enemies Position ------->
+//<------- updateShotEnemies Enemies Position ------->
 
 function updateEnemiesPosition() {
     moveDirection = checkEnemiesCollisionWithBorder(moveDirection);
@@ -220,16 +239,14 @@ function updateEnemiesPosition() {
 //<-------draw player------->
 
 function draw_player(originX, originY) {
-    context.clearRect(originX, originY, playerSizeWidht, playerSizeHigh);
+    // context.clearRect(originX, originY, playerSizeWidht, playerSizeHigh);
     context.drawImage(spaceheroImage, spacehero.x, spacehero.y, playerSizeWidht, playerSizeHigh);
 };
 
 //<-------draw enemies------->
 
 function draw_enemies() {
-    //clear before draw
     // context.clearRect(0, 0, canvas.width, canvas.height * 0.6);
-    context.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < enemiesArray.length; i++) {
         for (let j = 0; j < enemiesArray[i].length; j++) {
             let enemy = enemiesArray[i][j];
@@ -238,7 +255,7 @@ function draw_enemies() {
             }
         }
     }
-    draw_player(spacehero.x, spacehero.y);
+    // draw_player(spacehero.x, spacehero.y);
 }
 
 
@@ -255,9 +272,9 @@ function handle_shots() {
     const currentTime = new Date().getTime(); // Get the current timestamp
     const elapsed = currentTime - lastShotTime; // Calculate elapsed time since last shot
     //only if 2 seconds passed, can shot again
-    if (elapsed >= 2000) {
+    if (elapsed >= 200) {
         lastShotTime = currentTime;
-        let shot = new Object();
+        shot = new Object();
         shot.x = spacehero.x + (playerSizeWidht / 2) - (shotSize / 2);
         shot.y = spacehero.y - shotSize;
         shot.speed = shotSpeed;
@@ -270,7 +287,7 @@ function handle_shots() {
 
 }
 
-// update the positions of the player's shots
+// updateShotEnemies the positions of the player's shots
 function updateShotEnemiesPosition(curShot) {
     let killed = false;
     if (curShot.shotAlive) {
@@ -282,27 +299,32 @@ function updateShotEnemiesPosition(curShot) {
         for (let i = 0; i < enemiesArray.length; i++) {
             for (let j = 0; j < enemiesArray[i].length; j++) {
                 let enemy = enemiesArray[i][j];
-                if (enemy.alive && 
-                    ((curShot.x <= (enemy.x + enemySizeWeight)) && ((curShot.x + shotSize) >= enemy.x )) &&
-                    (curShot.y >= enemy.y && curShot.y <= enemy.y + enemySizeHeight)) 
-                {
+                if (enemy.alive &&
+                    ((curShot.x <= (enemy.x + enemySizeWeight)) && ((curShot.x + shotSize) >= enemy.x)) &&
+                    (curShot.y >= enemy.y && curShot.y <= enemy.y + enemySizeHeight)) {
                     // Collision detected, mark the enemy as destroyed
                     enemy.alive = false;
                     // Stop updating the position of the shot
                     curShot.shotAlive = false;
+
                     // Update score or other game mechanics as needed
+                    totalScore += enemy.score;
+
+                    console.log(totalScore);
                     return;
-                    
+
                 }
-                
+
             }
-           
+
         }
 
         // Check if the shot has gone out of bounds
         if (curShot.y < 0) {
             // Shot is out of bounds, mark it as destroyed
             curShot.shotAlive = false;
+            // const index2 = shotsArray.indexOf(curShot);
+            // shotsArray.splice(index2, 1);
         }
     }
 }
@@ -315,13 +337,18 @@ function draw_shots(curShot) {
         context.fillStyle = "red"; // Set color of the shot
         context.fillRect(curShot.x, curShot.y, shotSize, shotSize); // Draw a rectangle to represent the shot
     }
+    else {
+        // removes dead shot from the array
+        const index = shotsArray.indexOf(curShot);
+        shotsArray.splice(index, 1);
+    }
 }
 
-// update the game
-function update() {
+// updateShotEnemies the game
+function updateShotEnemies() {
     for (let i = 0; i < shotsArray.length; i++) {
         updateShotEnemiesPosition(shotsArray[i]);
         draw_shots(shotsArray[i]);
-    }
+    }
 
 }
