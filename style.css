@@ -121,9 +121,9 @@ input[type=text], input[type=password] {
 
 /* Canvas */
 	#Canvas{ 
-	outline: whitesmoke 8px Double ;
+	/* outline: whitesmoke 8px Double ;
 	border-width: thin;
-	border-radius: 5%;
+	border-radius: 5%; */
 	/* background-color: black;
 	border-color: black; */
 	width: 100%;
@@ -139,7 +139,8 @@ input[type=text], input[type=password] {
 
 /* play game screen */
   #play_game{
-	background-image: url('photos/space.jpg');;
+	background-image: url('photos/space_star.jpg');
+
   }
   .game_container{
 	width: 100vw;
@@ -148,16 +149,16 @@ input[type=text], input[type=password] {
 	display: grid;
 
 	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: 50px 1fr 1fr 100px;
+	grid-template-rows: 100px 1fr 1fr 100px;
 
 	gap: 10px;
 	padding: 10px;
   }
 
-  .container div{
+  /* .container div{
 	padding: 10px;
 	border: 1px solid black; 
-  }
+  } */
 
   .header{
 	grid-column-start:1;
@@ -165,7 +166,10 @@ input[type=text], input[type=password] {
 
   }
 
-  .canvas{
+  .canvas{  
+	border-radius: 5%;
+	outline: rgb(109, 107, 107) 6px Double;
+	/* background: linear-gradient(45deg, rgb(27, 27, 94), rgb(2, 61, 56), rgb(6, 6, 53)); */ 
 	grid-row-start: 2;
 	grid-row-end: span 2;
 	grid-column-start: 2;
@@ -193,16 +197,14 @@ input[type=text], input[type=password] {
 
   /* welcome screen */
   .W_container{
-	width: 100vw;
-	height: 100vh;
-
+	
 	display: grid;
 
 	grid-template-columns: 2fr 1fr;
 	grid-template-rows: 50px 2fr 2fr 100px;
 
 	gap: 10px;
-	padding: 10px;
+	padding: 0px;
   }
 
   .W_header{
@@ -240,6 +242,13 @@ input[type=text], input[type=password] {
   }
 
   .welcome{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
 	/* background-image:linear-gradient(to right, rgb(4, 41, 44), rgb(6, 82, 82));; */
 	background-image: url("photos/space2.gif");
 	background-size: cover;
@@ -249,6 +258,7 @@ input[type=text], input[type=password] {
 
 
   .sign_log{
+
 	text-align: center;
 	margin-top: 100px;
 	margin-right: 100px;
@@ -276,6 +286,11 @@ input[type=text], input[type=password] {
 	animation: borderbg 40s linear infinite;
 	border-radius: 2em;
 
+  }
+
+  button.W_item:hover{
+	color: black;
+	text-shadow: 1px 1px white;
   }
 
   @keyframes borderbg{
@@ -313,6 +328,13 @@ input[type=text], input[type=password] {
 /* sign in */
   #sign_in, #log_in{
 	/* background: linear-gradient(60deg, rgb(2, 7, 71), rgb(7, 18, 168), rgb(112, 112, 204)); */
+	/* width: 100%;
+	height: 100%;
+	position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0; */
 	background-image: url("photos/space2.gif");
 	background-size: cover;
 
@@ -327,21 +349,45 @@ input[type=text], input[type=password] {
 	color: whitesmoke;
   }
 
-  #sign_in button, #log_in button{
+  #sign_in button, #log_in button, #play_game_btn, .game_btn{
 	box-shadow: 6px 6px 0 rgb(0, 0, 0);
 	background-color: rgb(246, 246, 248);
 	/* background: black; */
-	color: black;
+	color: white;
 	padding: 15px;
 	border-radius: 1em;
 	border: black;
-	font-size: 20px;
+	font-size: 15px;
 	text-align: center;
 	font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 	cursor: pointer;
+	background: linear-gradient(45deg, rgb(3, 9, 66),  rgb(38, 36, 114), rgb(14, 55, 131));
 
-
+	z-index: -1;
+	text-shadow: 3px 2px black;
   }
+
+	#sign_in button:hover, #log_in button:hover, #play_game_btn:hover, .game_btn:hover{
+		color: black;
+		background: linear-gradient(45deg, rgb(12, 102, 102),  rgb(244, 244, 247), rgb(12, 124, 158));
+		
+		text-shadow: 1px 1px white;
+		
+	}
+
+.game_btn{
+
+	border: #ccc;
+}
+
+
+.game_features{
+	text-align: center;
+	margin:auto;
+	color:#f2f2f2;
+}
+
+  
 
   #log_in{
 	width: 100%;
@@ -363,6 +409,137 @@ input[type=text], input[type=password] {
 	margin-left: 20px;
   }
 
+  /* configuration */
+
+  #configuration{
+
+	background-image: url("photos/space2.gif");
+	background-size: cover;
+	width: 100%;
+    height: 100%; 
+	margin:auto;
+	/* position: fixed;
+
+  
+	/* left: 0;
+    top: 0;
+	width: 100vw;
+	height: 100vh; */
+  }
+
+  #configuration .container{
+
+	display: grid;
+	/* width: 100%;
+	height: 100%;
+	position: fixed;*/
+
+    left: 0;
+    top: 0;
+	width: 100vw;
+	height: 100vh;
+
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 5fr 1fr;
+
+	gap: 10px;
+	padding: 0px;
+  }
+
+  #configuration .container .header{
+	grid-row:1/ span 1;
+	grid-column:1/span 1;
+  }
+
+  #configuration .container .conf{
+	grid-row:2/ span 1;
+	grid-column:1/span 1;
+	color: white;
+	font-size: 20px;
+	text-align: center;
+	font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	
+
+  }
+
+  #configuration .container .footer{
+	grid-row:3/ span 1;
+	grid-column:1/span 1;
+  }
+
+  .config_button{
+	width: 7%;
+	height: 20%;
+	margin-right: 10px;
+	background-size: cover;
+	cursor: pointer;
+	transition: top, left, right, bottom, 100ms, ease-in-out;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index: -1;
+	border-radius: 10px;
+	border: 3px solid black;
+  }
+
+  .config_button:hover{
+	/* top: calc(3px * -2); 
+	left: calc(3px * -2); 
+	right: calc(3px * -2); 
+	bottom: calc(3px * -2);   */
+	border: 3px solid white;
+  }
+
+  #playerButton1{
+	background-image: url("photos/player_photo1.jpg");
+  }
+
+  #playerButton2{
+	background-image: url("photos/player_photo2.jpg");
+  }
+
+  #playerButton3{
+	background-image: url("photos/player_photo3.jpg");
+  }
+
+  #enemyButton1{
+	background-image: url("photos/enemy_photo1.jpg");
+  }
+
+  #enemyButton2{
+	background-image: url("photos/enemy_photo2.jpg");
+  }
+
+  #enemyButton3{
+	background-image: url("photos/enemy_photo3.jpg");
+  }
+
+  #bulletButton1{
+	background-image: url("photos/bullet_conf1.jpg");
+  }
+
+  #bulletButton2{
+	background-image: url("photos/bullet_conf2.jpg");
+  }
+
+  #bulletButton3{
+	background-image: url("photos/bullet_conf3.jpg");
+  }
+
+  #EbulletButton1{
+	background-image: url("photos/bullet_conf1.jpg");
+  }
+
+  #EbulletButton2{
+	background-image: url("photos/bullet_conf2.jpg");
+  }
+
+  #EbulletButton3{
+	background-image: url("photos/bullet_conf3.jpg");
+  }
+
+  
 
 
 

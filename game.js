@@ -4,8 +4,8 @@ var intervalTimer;
 var intervalTimer2;
 var then;
 var keysDown;
-var playerSizeWidht = 20;
-var playerSizeHigh = 20;
+var playerSizeWidht = 30;
+var playerSizeHigh = 30;
 var StartedGame = false;
 var enemySizeWeight = 20;
 var enemySizeHeight = 20;
@@ -18,13 +18,67 @@ var enemyImage;
 var enemySpeed;
 var moveDirection = "right"; // initialize move direction to right
 var shotSpeed = 3;
-var shotSize = 5;
+var shotSize = 10;
 var shotsArray;
 var lastShotTime;
+var enemyPhoto;
+var playerPhoto;
+var shotImage;
 var shot;
 var speedCounter;
 var lastSpeedTime;
 var totalScore;
+
+
+//<-------configuration------->
+
+// choose Image for player 
+function ChoosePlayer(photo_number){
+    if (photo_number == 1){
+        playerPhoto= "photos/player_photo1.jpg";
+    }
+    if (photo_number == 2){
+        playerPhoto= "photos/player_photo2.jpg";
+    }
+    if (photo_number == 3){
+        playerPhoto= "photos/player_photo3.jpg";
+    }
+
+}
+
+// choose Image for Enemy
+function ChooseEnemy(photo_number){
+    if (photo_number == 1){
+        enemyPhoto= "photos/enemy_photo1.jpg";
+    }
+    if (photo_number == 2){
+        enemyPhoto= "photos/enemy_photo2.jpg";
+    }
+    if (photo_number == 3){
+        enemyPhoto= "photos/enemy_photo3.jpg";
+    }
+}
+
+// choose Image for player bullet
+function Chooseshot(photo_number){
+    if (photo_number == 1){
+        shotImage= "photos/bullet_photo1.jpg";
+    }
+    if (photo_number == 2){
+        shotImage= "photos/bullet_photo2.jpg";
+    }
+    if (photo_number == 3){
+        shotImage= "photos/bullet_photo3.jpg";
+    }
+
+}
+
+// choose Image for Enemy bullet
+function ChooseshotE(photo_number){
+
+}
+
+
 //<-------Play Game------->
 function StartGame() {
     toggleDiv("play_game");
@@ -62,7 +116,7 @@ function init_player() {
     spacehero.speed = 10;
 
     spaceheroImage = new Image(playerSizeWidht, playerSizeHigh);
-    spaceheroImage.src = "photos/spaceship.jpg";
+    spaceheroImage.src = playerPhoto;
 
     spacehero.x = canvas.width / 2;
     spacehero.y = canvas.height - playerSizeHigh;
@@ -74,7 +128,7 @@ function init_player() {
 function init_enemies() {
     enemySpeed = 5;
     enemyImage = new Image(enemySizeWeight, enemySizeHeight);
-    enemyImage.src = "photos/spaceship.jpg";
+    enemyImage.src = enemyPhoto;
     let padding = 30;
     let enemyScore=20;
     enemiesArray = new Array(4);
@@ -335,6 +389,7 @@ function draw_shots(curShot) {
         //clear old shot from the canvas
         // context.clearRect(0, 0, canvas.width, canvas.height );
         context.fillStyle = "red"; // Set color of the shot
+        // context.drawImage(shotImage, curShot.x, curShot.y, shotSize, shotSize); //TO DO ->draw with image
         context.fillRect(curShot.x, curShot.y, shotSize, shotSize); // Draw a rectangle to represent the shot
     }
     else {
