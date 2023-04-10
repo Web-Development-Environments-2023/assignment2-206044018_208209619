@@ -1,5 +1,3 @@
-
-
 //variables
 var intervalTimer;
 var intervalTimer2;
@@ -18,7 +16,7 @@ var enemiesArray;
 var enemyImage;
 var enemySpeed;
 var moveDirection = "right"; // initialize move direction to right
-var shotSpeed = 5;
+var shotSpeed = 3;
 var shotSize = 5;
 var shotsArray;
 var lastShotTime;
@@ -102,8 +100,8 @@ function new_game() {
     StartedGame = true;   ///To Do:  if the game stops = > change this to false
     reset();
     draw_player(0, 0);
-    move_enemies_and_shot_Enemies();
-    // shot_Enemies();
+    move_enemies();
+    shot_Enemies();
 };
 
 // Reset the player and bad spaceships positions when player start new game
@@ -149,20 +147,15 @@ function updatePositions(keyBtn) {
     draw_player(x, y);
 
 };
-// function shot_Enemies() {
-//     intervalTimer2 = setInterval(update, 100);
-// }
+function shot_Enemies() {
+    intervalTimer2 = setInterval(update, 100);
+}
 
 
 //<------- move enemies ------->
 
-function move_enemies_and_shot_Enemies() {
-    intervalTimer = setInterval(game_loop, 100);
-}
-
-function game_loop(){
-    update();
-    updateEnemiesPosition();
+function move_enemies() {
+    intervalTimer = setInterval(updateEnemiesPosition, 100);
 }
 
 
@@ -329,7 +322,6 @@ function update() {
     for (let i = 0; i < shotsArray.length; i++) {
         updateShotEnemiesPosition(shotsArray[i]);
         draw_shots(shotsArray[i]);
-    }
+    }
 
 }
-
