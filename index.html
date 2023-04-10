@@ -66,7 +66,7 @@
 
     <form id="sign_in_form">
 		<div class="container">
-            <br/><br/><br/><br/>
+            <br/><br/>
 		  <h1>Sign Up</h1>
 		
 		  <label for="username"><b>User Name</b></label>
@@ -109,7 +109,7 @@
 		  <br/>
 		  <input type="date" id="birthday" name="birthday" required>
       
-          <br/>
+          <!-- <!-- <br/> -->
           <br/>
           <br/>
 		  <button type="submit" class="B_left">Sign up</button>
@@ -163,10 +163,60 @@
 
 
 <!-- Configuration -->
-<div id="configuration" style="display:none;">configuration
+<div id="configuration" style="display:none;">
     <br/>
-    <br/><br/><br/><br/><br/>
-    <button type="button" onclick="StartGame()">Play Game</button>
+    <div class="container">
+        <br/><br/><br/><br/><br/>
+        <div class="header">
+        about us + logo 
+        </div>
+        <div class="conf">
+            Choose Player Character:
+            <br/>
+            <button type="button" class="config_button" id="playerButton1" onclick="ChoosePlayer(1)"></button>
+            <button type="button" class="config_button" id="playerButton2" onclick="ChoosePlayer(2)"></button>
+            <button type="button" class="config_button" id="playerButton3" onclick="ChoosePlayer(3)"></button>
+            <br/><br/>
+            Choose Enemy Character:
+            <br/>
+            <button type="button" class="config_button" id="enemyButton1" onclick="ChooseEnemy(1)"></button>
+            <button type="button" class="config_button" id="enemyButton2" onclick="ChooseEnemy(2)"></button>
+            <button type="button" class="config_button" id="enemyButton3" onclick="ChooseEnemy(3)"></button>
+            <br/><br/>
+            
+            Choose bullet for Player:
+            <br/>
+            <button type="button" class="config_button" id="bulletButton1" onclick="Chooseshot(1)"></button>
+            <button type="button" class="config_button" id="bulletButton2" onclick="Chooseshot(2)"></button>
+            <button type="button" class="config_button" id="bulletButton3" onclick="Chooseshot(3)"></button>
+            <br/><br/>
+
+            Choose bullet for enemy:
+            <br/>
+            <button type="button" class="config_button" id="EbulletButton1" onclick="ChooseshotE(1)"></button>
+            <button type="button" class="config_button" id="EbulletButton2" onclick="ChooseshotE(2)"></button>
+            <button type="button" class="config_button" id="EbulletButton3" onclick="ChooseshotE(3)"></button>
+            <br/><br/>
+
+            Choose Keyboard for Shooting: a-z or space
+            <br/>
+            put input text
+            <br/><br/>
+            Choose Time For Game:
+            <br/>
+            put timer
+            <br/><br/>
+
+            <button type="button" id="play_game_btn" onclick="StartGame()">Play Game</button>
+
+        </div>
+        <div class="footer">
+            footer
+        </div>
+
+        
+
+    </div>
 </div>
 
 
@@ -186,13 +236,53 @@
 
 
         <div class="game_features">
-            <button type="button" id="new_game_btn" >Start Game</button>
-            <button type="button"  onclick="toggleDiv('Welcome_div')">Cancel</button>
+            <audio>
+				
+			</audio>
+			
+			
+				<label for="featureUser">USER NAME:</label>
+				<br/>
+				<input id="featureUser" type="text" readonly=true />
+                <br/>
+                <br/>
+				<label for="featureTime">TIME:</label>
+				<br/>
+                <input id="featureTime" type="text" />
+				<br/><br/>
+				<label for="featureScore">SCORE:</label>
+				<br/>
+				<input id="featureScore" type="text" />
+				
+               
+				
+				<br/>
+                <br/>
+				<label for="featureLive">LIVE:</label>
+				<br/>
+                
+				<input id="featureLive" type="text" />
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+                
+                <button type="button" class="game_btn" id="new_game_btn" >Start Game</button>
+                <br>
+                <br>
+
+                <button type="button" class="game_btn" onclick="toggleDiv('Welcome_div')">Exit Game</button>
+	
+
+
+
         </div>
 
 
         <div class="menu">
-            Menu
+           
             
         </div>
 
