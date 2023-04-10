@@ -1,3 +1,4 @@
+
 //Vars 
 const database = [
     {
@@ -12,15 +13,15 @@ const database = [
 // Menu Div
 var div_visible = "Welcome_div";
 function toggleDiv(div_id) {
-    if (div_id == "sign_in" || div_id == "log_in"){
-        document.getElementById("menu").style.display = 'block';
-    }
+    // if (div_id == "sign_in" || div_id == "log_in"){
+    //     document.getElementById("menu").style.display = 'block';
+    // }
 
     if (div_id == "Welcome_div"){
         document.getElementById("menu").style.display = 'none';
 
     }
-        document.getElementById(div_visible).style.display = 'none';
+    document.getElementById(div_visible).style.display = 'none';
     document.getElementById(div_id).style.display = 'block';
     div_visible = div_id;
 }
