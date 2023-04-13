@@ -47,10 +47,12 @@ var timeOver;
 var playButton;
 var pauseButton;
 var heartFlag;
-var heartImg;
-var heartRandomX;
-var heartRandomY;
-var heartImageSize=10;
+var clockFlag;
+var clockImg;
+var clockRandomX;
+var clockRandomY;
+var heartAndClockImgSize = 15;
+
 //<-------------------------------------- Configuration -------------------------------------->
 
 // choose Image for player 
@@ -112,20 +114,18 @@ function ChooseshotE(photo_number) {
 
 //------- Start Game--------
 function StartGame() {
-    if (!checkConfigurationTimeInput()) {
+    if (!checkConfigurationInput()) {
         return;
     }
     toggleDiv("play_game");
     setupGame();
 
 }
-function checkConfigurationTimeInput() {
+function checkConfigurationInput() {
     // Get the user-specified time from the input field
     userTimeInput = document.getElementById("inputTime").value;
-
     // Convert the user input to a number
     time = parseInt(userTimeInput, 10);
-
     // Validate the user input to ensure it's a positive number
     if (!isNaN(time) && time > 0) {
         return true;
@@ -133,6 +133,7 @@ function checkConfigurationTimeInput() {
         // Display an error message for invalid input
         alert("Please enter a valid positive number for time.");
     }
+    
 }
 
 
@@ -174,7 +175,7 @@ function setupGame() {
     }, false);
 
     backgroundMusic = document.getElementById('backgroundMusic'); // Access the audio element by its ID
-    backgroundMusic.volume = 0.4; // Set volume to 0.5 (50%)
+    backgroundMusic.volume = 0.3; 
 
     enemyDeathSound = new Audio('photos/shortEnemyHit.mp4');
     enemyDeathSound.volume = 0.5;
@@ -190,12 +191,19 @@ function setupGame() {
 
     gameOverSound = new Audio('photos/gameOverSound.wav');
     gameOverSound.volume = 0.7;
+
     WinSound = new Audio('photos/winSound.wav');
     gameOverSound.volume = 0.7;
 
-    heartImg = new Image(heartImageSize, heartImageSize);
+    clockSound = new Audio('photos/clock sound.mp3');
+    clockSound.volume = 0.5;
+
+
+    heartImg = new Image(heartAndClockImgSize, heartAndClockImgSize);
     heartImg.src = "photos/heart.png";
 
+    clockImg = new Image(heartAndClockImgSize, heartAndClockImgSize);
+    clockImg.src = "photos/clockImg.png";
 }
 
 // -------initialize the player------- 
@@ -287,17 +295,22 @@ function reset() {
 
     stopTimer();
     resetTimer();
-    resetHeart();
+    resetHeartAndClock();
     backgroundMusic.play();
 
 
 };
-function resetHeart(){
-    heartRandomX = 20 + Math.random() * (canvas.width - heartImageSize - 20);
-    const minY = canvas.height - (canvas.height * 0.4) + heartImageSize;
-    const maxY = canvas.height - heartImageSize;
+function resetHeartAndClock() {
+    heartRandomX = 20 + Math.random() * (canvas.width - heartAndClockImgSize - 20);
+    const minY = canvas.height - (canvas.height * 0.4) + heartAndClockImgSize;
+    const maxY = canvas.height - heartAndClockImgSize;
     heartRandomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
     heartFlag = false;
+    clockRandomX = 20 + Math.random() * (canvas.width - heartAndClockImgSize - 20);
+    const clockminY = canvas.height - (canvas.height * 0.4) + heartAndClockImgSize;
+    const clockmaxY = canvas.height - heartAndClockImgSize;
+    clockRandomY = Math.floor(Math.random() * (clockmaxY - clockminY + 1)) + clockminY;
+    clockFlag = false;
 }
 // --exit game function--
 function exit_game() {
@@ -326,11 +339,16 @@ function game_loop() {
     updateShotEnemies();
     updateShootPlayer();
     updateSpeed();
-    if (time <= 100 && heartFlag==false) {
+    if (playerLives < 3 && heartFlag == false) {
         drawExtraLife();
         checkCollideWithHeart();
     }
-    
+    if (time <= 120 && clockFlag == false) {
+        drawExtraTime();
+        checkCollideWithClock();
+    }
+
+
 
 }
 
@@ -658,6 +676,7 @@ function updateShootPlayerPosition(curShot) {
             ((curShot.x <= (spacehero.x + playerSizeWidth)) && ((curShot.x + shotSize) >= spacehero.x)) &&
             (curShot.y >= spacehero.y && curShot.y <= spacehero.y + playerSizeHeight)) {
             // Collision detected, mark the enemy as destroyed
+
             const playerHitSoundInstance = playerHitSound.cloneNode(); // Create a new audio instance
             playerHitSoundInstance.play(); // Play the sound
 
@@ -713,10 +732,14 @@ function startTimer() {
         time--;
         // Check if the timer has reached 0
         if (time <= 0) {
-            // Stop the timer when it reaches 0
             stopTimer();
-            // Update the UI to display the updated time
+            
             timeOver = true;
+        }
+        if (time == 10) {
+            //10 seconds left clock sound
+            const clockSoundInstance = clockSound.cloneNode();
+            clockSoundInstance.play();
         }
         document.getElementById("featureTime").textContent = "Time: " + time + " seconds";
 
@@ -733,20 +756,41 @@ function resetTimer() {
     document.getElementById("featureTime").textContent = "Time: " + time + " seconds";
 }
 function drawExtraLife() {
-    heartImageSize = 10;
-    context.drawImage(heartImg, heartRandomX, heartRandomY, heartImageSize, heartImageSize);
+    heartAndClockImgSize = 15;
+    context.drawImage(heartImg, heartRandomX, heartRandomY, heartAndClockImgSize, heartAndClockImgSize);
 }
+
+function drawExtraTime() {
+    heartAndClockImgSize = 15;
+    context.drawImage(clockImg, clockRandomX, clockRandomY, heartAndClockImgSize, heartAndClockImgSize);
+}
+
 function checkCollideWithHeart() {
     // Check for collision
     if (heartRandomX < spacehero.x + playerSizeWidth &&
-        heartRandomX + heartImageSize > spacehero.x &&
+        heartRandomX + heartAndClockImgSize > spacehero.x &&
         heartRandomY < spacehero.y + playerSizeHeight &&
-        heartRandomY + heartImageSize > spacehero.y) {
+        heartRandomY + heartAndClockImgSize > spacehero.y) {
         // Collision detected between image and player
-        playerLives+=1;
+        playerLives += 1;
         document.getElementById("featureLive").textContent = playerLives + " Lives!";
         const extraLifeSoundInstance = extraLifeSound.cloneNode();
-        extraLifeSoundInstance.play(); 
-        heartFlag=true;     
+        extraLifeSoundInstance.play();
+        heartFlag = true;
+    }
+}
+
+function checkCollideWithClock() {
+    // Check for collision
+    if (clockRandomX < spacehero.x + playerSizeWidth &&
+        clockRandomX + heartAndClockImgSize > spacehero.x &&
+        clockRandomY < spacehero.y + playerSizeHeight &&
+        clockRandomY + heartAndClockImgSize > spacehero.y) {
+        // Collision detected between image and player
+        time += 10;
+        document.getElementById("featureTime").textContent = "Time: " + time + " seconds";
+        const extraLifeSoundInstance = extraLifeSound.cloneNode();
+        extraLifeSoundInstance.play();
+        clockFlag = true;
     }
 }
