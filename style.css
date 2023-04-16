@@ -412,6 +412,7 @@ input[type=text], input[type=password] {
   /* configuration */
 
   #configuration{
+	background-attachment: fixed;
 
 	background-image: url("photos/space2.gif");
 	background-size: cover;
