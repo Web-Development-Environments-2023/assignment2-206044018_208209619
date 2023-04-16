@@ -20,13 +20,14 @@ var enemySpeed;
 var moveDirection;
 var shotEnemiesSpeed;
 var shootPlayerSpeed;
-var shotSize = 6;
+var shotSize = 10;
 var shotsArray;
 var shootPlayerArray;
 var lastShotTime;
 var enemyPhoto;
 var playerPhoto;
 var shotImage;
+var enemyShotImage;
 var shot;
 var speedCounter;
 var lastSpeedTime;
@@ -66,9 +67,6 @@ function ChoosePlayer(photo_number) {
     if (photo_number == 3) {
         playerPhoto = "photos/player_photo3.jpg";
     }
-    else { //default
-        playerPhoto = "photos/player_photo3.jpg";
-    }
 
 }
 
@@ -83,30 +81,33 @@ function ChooseEnemy(photo_number) {
     if (photo_number == 3) {
         enemyPhoto = "photos/enemy_photo3.jpg";
     }
-    else { //default
-        enemyPhoto = "photos/enemy_photo3.jpg";
-    }
 }
 
 // choose Image for player bullet
 function Chooseshot(photo_number) {
     if (photo_number == 1) {
-        shotImage = "photos/bullet_photo1.jpg";
+        shotImage = "photos/bullet_photo1.png";
     }
     if (photo_number == 2) {
-        shotImage = "photos/bullet_photo2.jpg";
+        shotImage = "photos/bullet_photo2.png";
     }
     if (photo_number == 3) {
-        shotImage = "photos/bullet_photo3.jpg";
-    }
-    else { //default
-        shotImage = "photos/bullet_photo3.jpg";
+        shotImage = "photos/bullet_photo3.png";
     }
 
 }
 
 // choose Image for Enemy bullet
 function ChooseshotE(photo_number) {
+    if (photo_number == 1) {
+        enemyShotImage = "photos/bullet_photo4.png";
+    }
+    if (photo_number == 2) {
+        enemyShotImage = "photos/bullet_photo2.png";
+    }
+    if (photo_number == 3) {
+        enemyShotImage = "photos/bullet_photo3.png";
+    }
 
 }
 
@@ -526,6 +527,10 @@ function init_shotEnemies() {
 
 // initialize the shoot player
 function init_shootPlayer() {
+    
+    enemyShotImage1 = new Image(playerSizeWidth, playerSizeHeight);
+    enemyShotImage1.src = enemyShotImage;
+
     shootPlayerArray = new Array();
 }
 
@@ -590,9 +595,9 @@ function updateShotEnemiesPosition(curShot) {
 // draw the player's shots
 function drawshotEnemies(curShot) {
     if (curShot.shotAlive) {
-        context.fillStyle = "red"; // Set color of the shot
-        // context.drawImage(shotImage, curShot.x, curShot.y, shotSize, shotSize); //TO DO ->draw with image
-        context.fillRect(curShot.x, curShot.y, shotSize, shotSize); // Draw a rectangle to represent the shot
+        context.drawImage(shotImage1, curShot.x, curShot.y, shotSize, shotSize); //TO DO ->draw with image
+        // context.fillStyle = "red"; // Set color of the shot
+        // context.fillRect(curShot.x, curShot.y, shotSize, shotSize); // Draw a rectangle to represent the shot
     }
     else {
         // removes dead shot from the array
@@ -620,6 +625,10 @@ function shootPlayer() {
     }
 }
 function createShootEnemies() {
+    
+    shotImage1 = new Image(shotSize, shotSize);
+    shotImage1.src = shotImage;
+
     firstShootPlayer = false;
     shot = new Object();
     //choose random enemy
@@ -705,9 +714,9 @@ function updateShootPlayerPosition(curShot) {
 
 function drawShootPlayer(curShot) {
     if (curShot.shotAlive) {
-        context.fillStyle = "white"; // Set color of the shot
-        // context.drawImage(shotImage, curShot.x, curShot.y, shotSize, shotSize); //TO DO ->draw with image
-        context.fillRect(curShot.x, curShot.y, shotSize, shotSize); // Draw a rectangle to represent the shot
+        context.drawImage(enemyShotImage1, curShot.x, curShot.y, shotSize, shotSize); 
+        // context.fillStyle = "white"; // Set color of the shot
+        // context.fillRect(curShot.x, curShot.y, shotSize, shotSize); // Draw a rectangle to represent the shot
     }
 }
 
