@@ -420,7 +420,7 @@ function updatePlayerPosition(keyBtn) {
         if (spacehero.x <= canvas.width - playerSizeWidth)
             spacehero.x += spacehero.speed;
     }
-    draw_player(x, y);
+    // draw_player(x, y);
 
 };
 
@@ -742,7 +742,6 @@ function startTimer() {
         // Check if the timer has reached 0
         if (time <= 0) {
             stopTimer();
-            
             timeOver = true;
         }
         if (time == 10) {

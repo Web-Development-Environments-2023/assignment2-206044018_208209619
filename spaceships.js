@@ -156,7 +156,7 @@ $(document).ready(function () {
       },)
       // let form = $("#sign_in_form");
       // form[0].reset();
-      toggleDiv('log_in');
+      toggleDiv('Welcome_div');
     }
   });
   $.validator.addMethod('pattern', function (value, element) {
