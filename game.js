@@ -801,12 +801,12 @@ btnYes.addEventListener('click', () => {
     StartedGame = false;
     backgroundMusic.pause();
     console.log('Yes button clicked');
+    modal.style.display = 'none';
 });
 
 // Add event listener to No button
 btnNo.addEventListener('click', () => {
-    // Define action for No button
-    // e.g. Close the modal or do nothing
+    modal.style.display = 'none';
     console.log('No button clicked');
 });
 
