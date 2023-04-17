@@ -6,6 +6,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+		<!-- for the footer links -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
@@ -14,379 +18,379 @@
 </head>
 
 <body>
+    <div id="header">
+            <div class="navbar"> 
+                <div class="logo"> <img src="photos\logo.jpg" width="50" height="50"> </div>
+                <ul class="links">
+                    <li class="menu">
+                         <button class="menu_item" onclick="insta_dialog_open()"> Game Instructions </button>
+                    </li>
+                    <li class="menu"> 
+                        <button class="menu_item" onclick="model_dialog_open()"> About </button>
+                    </li>
+                    <li class="menu"> 
+                        <button class="menu_item" onclick="toggleDiv('Welcome_div')">  Home </button>
+                    </li>
 
+                </ul>
+            </div>
+    </div>
 
+    <div id="main">
     <!-- Welcome -->
 
-    <div class="welcome" id="Welcome_div" style="display:block;">
-        <div class="W_container">
+        <div class="welcome" id="Welcome_div" style="display:block;">
 
-            <div class="W_header">
+            <div class="W_container">
 
-            </div>
+                <div class="W_header">
+                    ID: 206044018, 208209619
 
-            <div class="game_name">
-                Space Ship
-                <br>
-                Game
-            </div>
+                </div>
 
-            <div class="game_img">
+                <div class="game_name">
+                    Space Ship
+                    <br>
+                    Game
+                </div>
 
-            </div>
+                <div class="game_img">
 
-            <div class="sign_log">
-                <button class="W_item" onclick="toggleDiv('sign_in')">Sign Up</button>
-                <button class="W_item" onclick="toggleDiv('log_in')">Login</button>
-                <!-- //delete this button -->
-                <button class="W_item" onclick="toggleDiv('play_game')">Play</button>
-            </div>
+                </div>
 
-            <div class="icons">
-                contact us
-                <a href="https://www.facebook.com"><i class="ri-facebook-circle-fill"></i> </a>
-                <!-- <a href="#"><i class="ri-facebook-circle-fill"></i></a>
-            <a href="#" ><i class="ri-linkedin-box-fill"></i> </a>
-            <a href="#"><i class="ri-linkedin-box-fill"></i></a> -->
+                <div class="sign_log">
+                    <button class="W_item" onclick="toggleDiv('sign_in')">Sign Up</button>
+                    <button class="W_item" onclick="toggleDiv('log_in')">Login</button>
+    
+                </div>
+
 
             </div>
-
         </div>
-    </div>
 
+        <!--------------------------- Sign in ------------------------------>
+        <div id="sign_in" style="display:none;">
 
-
-
-    <!-- Menu -->
-
-    <div id="menu" style="display:none;">
-        <div class="toolbar">
-
-            <button class="item" onclick="toggleDiv('Welcome_div')">Welcome</button>
-            <!-- <button class="item" onclick="model_dialog_open()">About</button> -->
-        </div>
-    </div>
-
-
-    <!--------------------------- Sign in ------------------------------>
-    <div id="sign_in" style="display:none;">
-
-
-        <form id="sign_in_form">
-            <div class="container">
-                <br /><br />
-                <h1>Sign Up</h1>
-
-                <label for="username"><b>User Name</b></label>
-                <br />
-                <input type="text" placeholder="Enter Your User Name" name="username" id="username" required>
-                <br />
-                <br />
-
-                <label for="password"><b>Password</b></label>
-                <br />
-                <input type="password" name="password" id="password" minlength="8" pattern="(?=.[a-zA-Z])(?=.[0-9]).*"
-                    placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required>
-                <br />
-                <br />
-
-                <label for="confirm_password"><b>Confirm Password</b></label>
-                <br />
-                <input type="password" name="confirm_password" id="confirm_password" equalTo="#password"
-                    placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required>
-                <br />
-                <br />
-
-                <label for="firstname"><b>First Name</b></label>
-                <br />
-                <input type="text" placeholder="Enter Your First Name" name="firstname" id="firstname" required>
-                <br />
-                <br />
-
-                <label for="lastname"><b>Last Name</b></label>
-                <br />
-                <input type="text" placeholder="Enter Your Last Name" name="lastname" id="lastname" required>
-                <br />
-                <br />
-
-                <label for="email"><b>Email</b></label>
-                <br />
-                <input type="email" placeholder="Enter Your Email" name="email" id="email" required>
-                <br />
-                <br />
-
-                <label for="birthday"><b>Birthday</b></label>
-                <br />
-                <input type="date" id="birthday" name="birthday" required>
-
-                <!-- <br/> -->
-                <br />
-                <br />
-                <button type="submit" class="B_left">Sign up</button>
-                <button type="button" class="B_right" onclick="toggleDiv('Welcome_div')">Cancel</button>
-
-            </div>
-        </form>
-        <br />
-        <br />
-        <br />
-
-    </div>
-
-
-    <!-- Log in -->
-
-    <div id="log_in" style="display:none;">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br /><br /><br />
-        <h1>Login</h1>
-        <br />
-        <div class="container">
-
-
-            <ul>
-                <li>
-                    <label for="uname"><b>Username</b></label>
-                    <br />
-                    <input id="uname" type="text" placeholder="Enter Username" name="uname" required>
-                </li>
-                <li>
+            <form id="sign_in_form">
+                <div class="container">
                     <br /><br />
-                    <label for="psw"><b>Password</b></label>
+                    <h1>Sign Up</h1>
+
+                    <label for="username"><b>User Name</b></label>
                     <br />
-                    <input id="psw" type="password" placeholder="Enter Password" name="psw" required>
+                    <input type="text" placeholder="Enter Your User Name" name="username" id="username" required>
+                    <br />
+                    <br />
+
+                    <label for="password"><b>Password</b></label>
+                    <br />
+                    <input type="password" name="password" id="password" minlength="8" pattern="(?=.[a-zA-Z])(?=.[0-9]).*"
+                        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required>
+                    <br />
+                    <br />
+
+                    <label for="confirm_password"><b>Confirm Password</b></label>
+                    <br />
+                    <input type="password" name="confirm_password" id="confirm_password" equalTo="#password"
+                        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required>
+                    <br />
+                    <br />
+
+                    <label for="firstname"><b>First Name</b></label>
+                    <br />
+                    <input type="text" placeholder="Enter Your First Name" name="firstname" id="firstname" required>
+                    <br />
+                    <br />
+
+                    <label for="lastname"><b>Last Name</b></label>
+                    <br />
+                    <input type="text" placeholder="Enter Your Last Name" name="lastname" id="lastname" required>
+                    <br />
+                    <br />
+
+                    <label for="email"><b>Email</b></label>
+                    <br />
+                    <input type="email" placeholder="Enter Your Email" name="email" id="email" required>
+                    <br />
+                    <br />
+
+                    <label for="birthday"><b>Birthday</b></label>
+                    <br />
+                    <input type="date" id="birthday" name="birthday" required>
+
+                    <!-- <br/> -->
+                    <br />
+                    <br />
+                    <button type="submit" class="B_left">Sign up</button>
+                    <button type="button" class="B_right" onclick="toggleDiv('Welcome_div')">Cancel</button>
+
+                </div>
+            </form>
+            <br />
+            <br />
+            <br />
+
+        </div>
+
+
+        <!-- Log in -->
+
+        <div id="log_in" style="display:none;">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br /><br /><br />
+            <h1>Login</h1>
+            <br />
+            <div class="container">
+
+
+                <ul>
+                    <li>
+                        <label for="uname"><b>Username</b></label>
+                        <br />
+                        <input id="uname" type="text" placeholder="Enter Username" name="uname" required>
+                    </li>
+                    <li>
+                        <br /><br />
+                        <label for="psw"><b>Password</b></label>
+                        <br />
+                        <input id="psw" type="password" placeholder="Enter Password" name="psw" required>
+                    </li>
+                    <li>
+                        <br /><br /><br />
+                        <button type="button" class="B_left" onclick="LogIn()">Login</button>
+                        <button type="button" class="B_right" onclick="toggleDiv('Welcome_div')">Cancel</button>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+
+
+        <!-- Configuration -->
+        <div id="configuration" style="display:none;">
+            <br />
+            <div class="container">
+                <br /><br /><br /><br /><br />
+                <div class="header">
+                    about us + logo
+                </div>
+                <div class="conf">
+                    Choose Player Character:
+                    <br />
+                    <button type="button" class="config_button" id="playerButton1" onclick="ChoosePlayer(1)"></button>
+                    <button type="button" class="config_button" id="playerButton2" onclick="ChoosePlayer(2)"></button>
+                    <button type="button" class="config_button" id="playerButton3" onclick="ChoosePlayer(3)"></button>
+                    <br /><br />
+                    Choose Enemy Character:
+                    <br />
+                    <button type="button" class="config_button" id="enemyButton1" onclick="ChooseEnemy(1)"></button>
+                    <button type="button" class="config_button" id="enemyButton2" onclick="ChooseEnemy(2)"></button>
+                    <button type="button" class="config_button" id="enemyButton3" onclick="ChooseEnemy(3)"></button>
+                    <br /><br />
+
+                    Choose bullet for Player:
+                    <br />
+                    <button type="button" class="config_button" id="bulletButton1" onclick="Chooseshot(1)"></button>
+                    <button type="button" class="config_button" id="bulletButton2" onclick="Chooseshot(2)"></button>
+                    <button type="button" class="config_button" id="bulletButton3" onclick="Chooseshot(3)"></button>
+                    <br /><br />
+
+                    Choose bullet for enemy:
+                    <br />
+                    <button type="button" class="config_button" id="EbulletButton1" onclick="ChooseshotE(1)"></button>
+                    <button type="button" class="config_button" id="EbulletButton2" onclick="ChooseshotE(2)"></button>
+                    <button type="button" class="config_button" id="EbulletButton3" onclick="ChooseshotE(3)"></button>
+                    <br /><br />
+
+                    Choose Keyboard for Shooting: a-z or space
+                    <br />
+                    put input text
+                    <br /><br />
+                    Choose Time For Game:
+                    <br />
+                    <input type="number" id="inputTime" min="20" max="300" step="30" value="20"> seconds
+                    <br /><br />
+
+                    <button type="button" id="play_game_btn" onclick="StartGame()">Play Game</button>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Play Game -->
+        <div id="play_game" style="display:none;">
+            <div class="game_container">
+
+                <div class="canvas_container">
+                    <canvas id="Canvas" class="canvas" width="810" height="650"></canvas>
+
+                </div>
+
+
+                <div class="game_features">
+                    <audio>
+
+                    </audio>
+
+                    <!-- //delete this button -->
+                    <button type="button" id="play_game_btn" onclick="StartGame()">Play Game</button>
+                    <!--  -->
+                    <label for="featureUser">USER NAME:</label>
+                    <br />
+                    <input id="featureUser" type="text" readonly=true />
+                    <br />
+                    <br />
+                    <label for="featureTime">TIME:</label>
+                    <br />
+                    <label id="featureTime" type="text"></label>
+                    <br /><br />
+                    <label for="featureScore">SCORE:</label>
+                    <br />
+                    <label id="featureScore" type="text"></label>
+
+                    <br />
+                    <br />
+                    <label for="featureLive">LIVE:</label>
+                    <br />
+                    <label id="featureLive" type="text"></label>
+
+                    <audio id="backgroundMusic" src="photos/background_music.mp3" loop></audio>
+                    <br />
+                    <br />
+                    <img id="playButton" src="./photos/playbutton.png" alt="Play" style="width: 30px; height: 30px;" />
+                    <img id="pauseButton" src="./photos/pausebutton.png" alt="Pause" style="width: 30px; height:30px;" />
+
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+
+                    <button type="button" class="game_btn" id="new_game_btn">Start New Game</button>
+                    <br>
+                    <br>
+
+                    <button type="button" class="game_btn" onclick="exit_game()">Exit Game</button>
+
+
+
+
+                </div>
+
+
+                <div class="menu">
+
+                </div>
+
+            </div>
+        </div>
+
+        <div id="score" style="display:none;"> score</div>
+
+        <!-- Model Dialog -->
+
+        <div id="model_dialog" class="model">
+            <dialog id="myDialog">
+                <div class="modal-header">
+                    <!-- <button class="close" onclick="model_dialog_close()"> <b> x </b></button> -->
+                    <button type="button" class="close" onclick="model_dialog_close()" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+              
+               <p>
+                In our enthralling game, players are granted a personalized gaming experience from the get-go, 
+               </br>
+                as they have the freedom to choose their spaceship type, as well as the type of shots that they will wield.
+                </br>
+                This feature allows for a unique and tailored gameplay experience for each player, making each game session truly one-of-a-kind.
+
+                </br> </br>
+                To ensure that players are not left in the dark, we have incorporated comprehensive game instructions, 
+                </br>
+                 making it easy for players to familiarize themselves with the game mechanics and start playing with ease and confidence.
+                </br>
+                As an added bonus, we have included in-game power-ups that offer players a chance to enhance their gameplay. 
+                </br>
+                By collecting the red heart that appears on the game board, 
+                </br>
+                players can add an extra life, effectively prolonging their game time. 
+                </br>
+                Additionally, players can add precious seconds to their game time by reaching the clock that also appears on the game board.
+                </br> 
+                In addition, we use Jquery to validate the sign up process.
+                   
+                </br></br> </br>
+                 With all these exciting features, our game promises to provide players with endless hours of exhilarating gameplay and a truly immersive gaming experience!!!
+               </p>
+
+              
+                <!-- esc -->
+                <!-- לחיצה על המסך -->
+
+            </dialog>
+
+        </div>
+    
+        <div id="instraction_dialog" class="model">
+            <dialog id="myInstraction">
+                <div class="Insta-header">
+                    <button type="button" class="close" onclick="insta_dialog_close()" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <p>
+
+                </p>
+
+                
+                <!-- esc -->
+                <!-- לחיצה על המסך -->
+
+            </dialog>
+
+        </div>
+    </div>
+
+    <div id="footer">
+        
+        <div class="icons">
+            <ul class="icons">
+                <li>
+                    
+                    <a href="https://www.facebook.com/reut.mealem/"><i class="ri-facebook-box-fill"></i></a>
                 </li>
                 <li>
-                    <br /><br /><br />
-                    <button type="button" class="B_left" onclick="LogIn()">Login</button>
-                    <button type="button" class="B_right" onclick="toggleDiv('Welcome_div')">Cancel</button>
+                    <a href="https://www.facebook.com/lidor.avital.1/"><i class="ri-facebook-box-fill"></i></a>
                 </li>
+                <li>
+                    <a href='https://instagram.com/reut_mealem?igshid=OTJhZDVkZWE='><i class="ri-instagram-line"></i></a>
+                </li>
+                <li>
+                    <a href="https://instagram.com/av.lidor?igshid=YmMyMTA2M2Y="><i class="ri-instagram-line"></i></a>
+                </li>
+                <li>
+                    <a href='https://www.linkedin.com/in/reut-mealem-344141270/'><i class="ri-linkedin-box-fill"></i></a>
+                </li>
+                <li>
+                    <a href='https://www.linkedin.com/in/lidor-avital-58a719259/'><i class="ri-linkedin-box-fill"></i></a>
+                </li>
+                
+                
             </ul>
         </div>
 
-
     </div>
-
-
-    <!-- Configuration -->
-    <div id="configuration" style="display:none;">
-        <br />
-        <div class="container">
-            <br /><br /><br /><br /><br />
-            <div class="header">
-                about us + logo
-            </div>
-            <div class="conf">
-                Choose Player Character:
-                <br />
-                <button type="button" class="config_button" id="playerButton1" onclick="ChoosePlayer(1)"></button>
-                <button type="button" class="config_button" id="playerButton2" onclick="ChoosePlayer(2)"></button>
-                <button type="button" class="config_button" id="playerButton3" onclick="ChoosePlayer(3)"></button>
-                <br /><br />
-                Choose Enemy Character:
-                <br />
-                <button type="button" class="config_button" id="enemyButton1" onclick="ChooseEnemy(1)"></button>
-                <button type="button" class="config_button" id="enemyButton2" onclick="ChooseEnemy(2)"></button>
-                <button type="button" class="config_button" id="enemyButton3" onclick="ChooseEnemy(3)"></button>
-                <br /><br />
-
-                Choose bullet for Player:
-                <br />
-                <button type="button" class="config_button" id="bulletButton1" onclick="Chooseshot(1)"></button>
-                <button type="button" class="config_button" id="bulletButton2" onclick="Chooseshot(2)"></button>
-                <button type="button" class="config_button" id="bulletButton3" onclick="Chooseshot(3)"></button>
-                <br /><br />
-
-                Choose bullet for enemy:
-                <br />
-                <button type="button" class="config_button" id="EbulletButton1" onclick="ChooseshotE(1)"></button>
-                <button type="button" class="config_button" id="EbulletButton2" onclick="ChooseshotE(2)"></button>
-                <button type="button" class="config_button" id="EbulletButton3" onclick="ChooseshotE(3)"></button>
-                <br /><br />
-
-                Choose Keyboard for Shooting: a-z or space
-                <br />
-                put input text
-                <br /><br />
-                Choose Time For Game:
-                <br />
-                <input type="number" id="inputTime" min="20" max="300" step="30" value="20"> seconds
-                <br /><br />
-
-                <button type="button" id="play_game_btn" onclick="StartGame()">Play Game</button>
-
-            </div>
-            <div class="footer">
-                footer
-            </div>
+</div>
 
 
 
-        </div>
-    </div>
-
-
-    <!-- Play Game -->
-    <div id="play_game" style="display:none;">
-        <div class="game_container">
-            <div class="header">
-                Hello
-            </div>
-
-
-            <div class="canvas">
-                <canvas id="Canvas" class="canvas" frame="class" width="512" height="400"></canvas>
-
-            </div>
-
-
-            <div class="game_features">
-                <audio>
-
-                </audio>
-
-                <!-- //delete this button -->
-                <button type="button" id="play_game_btn" onclick="StartGame()">Play Game</button>
-                <!--  -->
-                <label for="featureUser">USER NAME:</label>
-                <br />
-                <input id="featureUser" type="text" readonly=true />
-                <br />
-                <br />
-                <label for="featureTime">TIME:</label>
-                <br />
-                <label id="featureTime" type="text"></label>
-                <br /><br />
-                <label for="featureScore">SCORE:</label>
-                <br />
-                <label id="featureScore" type="text"></label>
-
-                <br />
-                <br />
-                <label for="featureLive">LIVE:</label>
-                <br />
-                <label id="featureLive" type="text"></label>
-
-                <audio id="backgroundMusic" src="photos/background_music.mp3" loop></audio>
-                <br />
-                <br />
-                <img id="playButton" src="./photos/playbutton.png" alt="Play" style="width: 30px; height: 30px;" />
-                <img id="pauseButton" src="./photos/pausebutton.png" alt="Pause" style="width: 30px; height:30px;" />
-
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-
-                <button type="button" class="game_btn" id="new_game_btn">Start New Game</button>
-                <br>
-                <br>
-
-                <button type="button" class="game_btn" onclick="exit_game()">Exit Game</button>
-
-
-
-
-            </div>
-
-
-            <div class="menu">
-
-
-            </div>
-
-
-            <div class="footer">
-                footer and contact us
-
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-    <div id="score" style="display:none;"> score</div>
-
-    <!-- Model Dialog -->
-
-    <div id="model_dialog" class="model">
-        <dialog id="myDialog">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span
-                        aria-hidden="true">&times;</span></button>
-            </div>
-            Hello model.
-
-            <button class="item" onclick="model_dialog_close()">Close</button>
-            <!-- esc -->
-            <!-- לחיצה על המסך -->
-
-        </dialog>
-
-    </div>
-
-
-
-    <!-- Contact -->
-    <div id="contact" class="contact" style="display:none;">>
-
-        <br />
-
-        <form> Contact me:
-            <div class="container">
-
-                <div class="mail">
-                    <br />
-                    <li><label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    </li>
-                </div>
-
-                <div class="message">
-                    <br />
-                    <li><label for="message">Message:</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </li>
-                </div>
-
-                <div class="smile">
-                    <br />
-                    <li>
-                        <label for="smile"> Smile:</label>
-                        <select id="smile" name="smile" oninput="addSmileToMessage()">
-                            <option value="&#128517;">😅 </option>
-                            <option value="&#128522;">😊</option>
-                            <option value="&#128536;">😘</option>
-                            <option value="&#128515;">😀</option>
-                            <option value="&#128557;">😭</option>
-                            <option value="&#128553;">😩</option>
-                            <option value="&#128542;">😞</option>
-                            <option value="&#128561;">😱</option>
-                            <option value="&#128151;">💗</option>
-                            <option value="&#128540;">😜</option>
-                            <option value="&#128077;">👍</option>
-                            <option value="&#128078;">👎</option>
-
-                        </select>
-                    </li>
-                </div>
-
-            </div>
-            <div>
-                <input type="button" value="Send Email" onclick="mailSend()" value="Send">
-            </div>
-        </form>
-        <br />
-        <br />
-    </div>
     <script type="text/javascript" src="spaceships.js"></script>
     <script type="text/javascript" src="game.js"></script>
 

@@ -8,49 +8,51 @@ const database = [
 
 ];
 
+// const modal1 = document.querySelector('#myDialog');
+// const openModal1 = document.querySelector('.open-button');
+// const closeModal1 = document.querySelector('.close-button');
 
 
 // Menu Div
 var div_visible = "Welcome_div";
 function toggleDiv(div_id) {
-  // if (div_id == "sign_in" || div_id == "log_in"){
-  //     document.getElementById("menu").style.display = 'block';
-  // }
 
-  if (div_id == "Welcome_div") {
-    document.getElementById("menu").style.display = 'none';
 
+  if (div_id == "play_game"){
+    document.getElementById(div_visible).style.display = 'none';
+    document.getElementById(div_id).style.display = 'block';
+    div_visible = div_id;
+    document.body.style.background = "url('photos/space_star.jpg')";
+    document.body.style.backgroundSize='cover';  
   }
-  document.getElementById(div_visible).style.display = 'none';
-  document.getElementById(div_id).style.display = 'block';
-  div_visible = div_id;
+
+  else{
+    document.getElementById(div_visible).style.display = 'none';
+    document.getElementById(div_id).style.display = 'block';
+    div_visible = div_id;
+    document.body.style.background = "url('photos/space2.gif')";
+    document.body.style.backgroundSize='cover';  
+  }
 }
 
 
 
-
-// Contact 
-function mailSend() {
-  let message = document.getElementById("message").value;
-  let mailtoUrl = "mailto:reutme@post.bgu.ac.il" + "?subject=" + "&body=" + encodeURIComponent(message);
-
-  window.location.href = mailtoUrl;
-}
-
-function addSmileToMessage() {
-  var message = document.getElementById("message").value;
-  var emoji = document.getElementById("smile").value;
-
-  document.getElementById("message").value = message + emoji;
-}
-
-// Model Dialog
+// Model Dialog for about
 function model_dialog_open() {
   document.getElementById("myDialog").showModal();
 }
 function model_dialog_close() {
   document.getElementById("myDialog").close();
 }
+
+// Model Dialog for instraction
+function insta_dialog_open() {
+  document.getElementById("myInstraction").showModal();
+}
+function insta_dialog_close() {
+  document.getElementById("myInstraction").close();
+}
+
 
 
 //  ------------- log in ------------- 
