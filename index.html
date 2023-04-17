@@ -29,7 +29,7 @@
                         <button class="menu_item" onclick="model_dialog_open()"> About </button>
                     </li>
                     <li class="menu"> 
-                        <button class="menu_item" onclick="toggleDiv('Welcome_div')">  Home </button>
+                        <button class="menu_item" onclick="changeDiv('Welcome_div')">  Home </button>
                     </li>
 
                 </ul>
@@ -161,7 +161,7 @@
                     <li>
                         <br /><br /><br />
                         <button type="button" class="B_left" onclick="LogIn()">Login</button>
-                        <button type="button" class="B_right" onclick="changedDiv('Welcome_div')">Cancel</button>
+                        <button type="button" class="B_right" onclick="changeDiv('Welcome_div')">Cancel</button>
                     </li>
                 </ul>
             </div>
@@ -237,7 +237,7 @@
                 </select> <br /><br />
                 Choose Time For Game:
                 <br />
-                <input type="number" id="inputTime" min="120" max="300" step="30" value="120"> seconds
+                <input type="number" id="inputTime" min="10" max="300" step="30" value="10"> seconds
                 <br /><br />
 
                     <button type="button" id="play_game_btn" onclick="StartGame()">Play Game</button>
@@ -270,7 +270,7 @@
 
                 <label for="featureUser">USER NAME:</label>
                 <br />
-                <input id="featureUser" type="text" readonly=true />
+                <label id="featureUser" type="text"></label>
                 <br />
                 <br />
                 <label for="featureTime">TIME:</label>

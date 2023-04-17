@@ -5,6 +5,7 @@ var database = [
   {
     username: "p",
     password: "testuser",
+    scores:[],
   },
 
 ];
@@ -63,6 +64,7 @@ function LogIn() {
   let password = document.getElementById("psw").value;
   if (isUserValid(user, password)) {
     changeDiv("configuration");
+    activeUser=user;
   }
   else {
     //TO DO - model dialog
@@ -88,7 +90,7 @@ $(document).ready(function () {
     rules: {
       username: {
         required: true,
-        isUserExist: false
+        isUserExist: true 
       },
       password: {
         required: true,
@@ -159,8 +161,8 @@ $(document).ready(function () {
         username: user1,
         password: password1,
       },)
-      // let form = $("#sign_in_form");
-      // form[0].reset();
+      console.log(user1+" and "+password1+" added to the database");
+      document.getElementById("sign_in_form").reset();
       changeDiv('Welcome_div');
     }
   });
@@ -173,11 +175,11 @@ $(document).ready(function () {
   }, 'Please enter letters only.');
   $.validator.addMethod('isUserExist', function (user) {
     for (let i = 0; i < database.length; i++) {
-      if (database[i].username == user) {
-        return true;
+      if (database[i].username === user) {
+        return false; // should return false when user exists
       }
     }
-    return false;
+    return true; // should return true when user does not exist
   });
 });
 

@@ -58,7 +58,7 @@ var shootingKey;
 var modal;
 var btnYes;
 var btnNo;
-
+var table;
 
 //<-------------------------------------- Play Game -------------------------------------->
 
@@ -69,6 +69,8 @@ function StartGame() {
     }
     changeDiv("play_game");
     setupGame();
+    document.getElementById("featureUser").textContent = activeUser;
+
 }
 
 //-------initialize the game-------
@@ -233,10 +235,11 @@ function reset() {
     speedCounter = 0;
 
     playerLives = 3;
-    document.getElementById("featureLive").textContent = playerLives + " Lives!";
+    document.getElementById("featureLive").textContent = playerLives + " Lives";
 
     totalScore = 0;
-    document.getElementById("featureScore").textContent = 0 + " Points!";
+    document.getElementById("featureScore").textContent = 0 + " Points";
+
 
     stopTimer();
     resetTimer();
@@ -275,7 +278,10 @@ function game_loop() {
         StartedGame = false;
         stopTimer();
         backgroundMusic.pause();
+        saveScore(activeUser, totalScore);
+        displayScoreHistory(activeUser);
         showGameOverMessage();
+
         return;
     }
     draw_player(spacehero.originX, spacehero.originY);
@@ -509,7 +515,7 @@ function updateShotEnemiesPosition(curShot) {
                     curShot.shotAlive = false;
                     // Update score or other game mechanics as needed
                     totalScore += enemy.score;
-                    document.getElementById("featureScore").textContent = totalScore + " Points!";
+                    document.getElementById("featureScore").textContent = totalScore + " Points";
 
                     return;
                 }
@@ -623,11 +629,9 @@ function updateShootPlayerPosition(curShot) {
             playerHitSoundInstance.play(); // Play the sound
 
             playerLives -= 1;
-            document.getElementById("featureLive").textContent = playerLives + " Lives!";
+            document.getElementById("featureLive").textContent = playerLives + " Lives";
             if (playerLives == 0) {
                 spacehero.alive = false;
-                //game over
-                console.log("game over");
             }
             // Stop updating the position of the shot
             curShot.shotAlive = false;
@@ -682,7 +686,7 @@ function startTimer() {
             const clockSoundInstance = clockSound.cloneNode();
             clockSoundInstance.play();
         }
-        document.getElementById("featureTime").textContent = "Time: " + time + " seconds";
+        document.getElementById("featureTime").textContent = time + " seconds";
 
     }, 1000); // 1000 milliseconds = 1 second
 }
@@ -694,7 +698,7 @@ function resetTimer() {
     timeOver = false;
     // Convert the user input to a number
     time = parseInt(userTimeInput, 10);
-    document.getElementById("featureTime").textContent = "Time: " + time + " seconds";
+    document.getElementById("featureTime").textContent = time + " seconds";
 }
 function drawExtraLife() {
     heartAndClockImgSize = 15;
@@ -714,7 +718,7 @@ function checkCollideWithHeart() {
         heartRandomY + heartAndClockImgSize > spacehero.y) {
         // Collision detected between image and player
         playerLives += 1;
-        document.getElementById("featureLive").textContent = playerLives + " Lives!";
+        document.getElementById("featureLive").textContent = playerLives + " Lives";
         const extraLifeSoundInstance = extraLifeSound.cloneNode();
         extraLifeSoundInstance.play();
         heartFlag = true;
@@ -729,7 +733,7 @@ function checkCollideWithClock() {
         clockRandomY + heartAndClockImgSize > spacehero.y) {
         // Collision detected between image and player
         time += 10;
-        document.getElementById("featureTime").textContent = "Time: " + time + " seconds";
+        document.getElementById("featureTime").textContent = time + " seconds";
         const extraLifeSoundInstance = extraLifeSound.cloneNode();
         extraLifeSoundInstance.play();
         clockFlag = true;
@@ -752,7 +756,7 @@ function showWinOrLoseMessage(message) {
     context.shadowOffsetY = 5;
 
     // Write the win message on the canvas
-    context.fillText(message, canvas.width / 2, canvas.height / 2);
+    context.fillText(message, canvas.width / 2, 60);
 }
 
 function YouCanDoBetterMsg(message) {
@@ -774,7 +778,7 @@ function YouCanDoBetterMsg(message) {
     context.shadowOffsetY = 5;
 
     // Write the win message on the canvas
-    context.fillText(message, canvas.width / 2, canvas.height / 2);
+    context.fillText(message, canvas.width / 2, 40);
 }
 
 
@@ -819,9 +823,133 @@ modal.addEventListener('click', (event) => {
 
 
 // Add event listener to modal overlay to close modal on click outside modal content
-modalOverlay.addEventListener('click', function(event) {
+modalOverlay.addEventListener('click', function (event) {
     if (event.target === modalOverlay) {
         modalOverlay.style.display = 'none';
     }
 });
 
+
+
+// Function to save current score and history of scores for a user
+function saveScore(username, currentScore) {
+    // Find the user object in the database based on the username
+    var user = database.find(function (user) {
+        return user.username === username;
+    });
+
+    // If user is found, update their scores
+    if (user) {
+        user.scores.push(currentScore);
+        console.log(user.scores);
+    }
+
+}
+
+// // Function to display history of scores for the active user
+// function displayScoreHistory(activeUser) {
+//     // Find the user object in the database based on the username
+//     var user = database.find(function (user) {
+//         return user.username === activeUser;
+//     });
+
+//     // If user is found, display their score history on the canvas
+//     if (user) {
+
+//    // Define table properties
+//    var tableWidth = 400;
+//    var tableHeight = (user.scores.length + 1) * 30; // Rows + header
+//    var tableX = (canvas.width - tableWidth) / 2 + 100; // Center horizontally
+//    var tableY = (canvas.height - tableHeight) / 2; // Center vertically
+//    var rowHeight = 30;
+//    var colWidth = 200;
+//    var headerColor = "black";
+//    var rowColor = "gray";
+//    var textColor = "white";
+//    var headerFont = "bold 16px Arial";
+//    var rowFont = "14px Arial";
+
+//    // Draw table header
+//    context.fillStyle = headerColor;
+//    context.font = headerFont;
+//    context.fillStyle = textColor; // Set text color
+//    context.fillText("Date", tableX, tableY);
+//    context.fillText("Score", tableX + colWidth, tableY);
+
+//    // Draw table rows
+//    context.fillStyle = rowColor;
+//    context.font = rowFont;
+//    context.fillStyle = textColor; // Set text color
+//    for (var i = 0; i < user.scores.length; i++) {
+//      var currentDate = new Date();
+//      var score = user.scores[i];
+//      var rowY = tableY + (i + 1) * rowHeight;
+//      context.fillText(currentDate.toLocaleString("en-US", {
+//        month: "long",
+//        day: "numeric",
+//        year: "numeric",
+//        hour: "numeric",
+//        minute: "numeric",
+//        second: "numeric"
+//      }), tableX, rowY);
+//      context.fillText(score, tableX + colWidth, rowY);
+//    }
+//  }
+// }
+
+
+// Function to display history of scores for the active user
+function displayScoreHistory(activeUser) {
+    // Find the user object in the database based on the username
+    var user = database.find(function (user) {
+        return user.username === activeUser;
+    });
+
+    // If user is found, display their score history on the canvas
+    if (user) {
+        // Define table properties
+        var tableWidth = 400;
+        var numScores = Math.min(user.scores.length, 10); // Number of scores to display, limited to maximum 10 scores
+        var tableHeight = (numScores + 1) * 30; // Rows + header
+        var tableX = (canvas.width - tableWidth) / 2 + 100; // Center horizontally
+        var tableY = (canvas.height - tableHeight) / 2; // Center vertically
+        var rowHeight = 30;
+        var colWidth = 200;
+        var headerColor = "black";
+        var rowColor = "gray";
+        var textColor = "white";
+        var headerFont = "bold 16px Arial";
+        var rowFont = "14px Arial";
+        var specialColor = "red"; // Color for marking the last score
+
+        // Draw table header
+        context.fillStyle = headerColor;
+        context.font = headerFont;
+        context.fillStyle = textColor; // Set text color
+        context.fillText("Date", tableX, tableY);
+        context.fillText("Score", tableX + colWidth, tableY);
+
+        // Draw table rows
+        context.fillStyle = rowColor;
+        context.font = rowFont;
+        for (var i = user.scores.length - 1; i >= user.scores.length - numScores; i--) { // Iterate backwards from the end
+            var currentDate = new Date();
+            var score = user.scores[i];
+            var rowY = tableY + ((user.scores.length - i) * rowHeight);
+            if (i === user.scores.length - 1) { // Check if last score
+                context.fillStyle = specialColor; // Set special color for last score
+            } else {
+                context.fillStyle = rowColor; // Reset to row color for other scores
+            }
+            context.fillText(currentDate.toLocaleString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric"
+            }), tableX, rowY);
+            context.fillText(score, tableX + colWidth, rowY);
+        }
+    }
+}
