@@ -265,7 +265,6 @@ function exit_game() {
     StartedGame = false;
     backgroundMusic.pause();
 
-
 }
 
 //--------- game loop --------
@@ -796,8 +795,11 @@ function showGameOverMessage() {
 // Add event listener to Yes button
 btnYes.addEventListener('click', () => {
     // Define action for Yes button
+    reset();
+    setupGame();
     changeDiv("configuration");
-    exit_game();
+    StartedGame = false;
+    backgroundMusic.pause();
     console.log('Yes button clicked');
 });
 

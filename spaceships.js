@@ -1,9 +1,10 @@
 
 //Vars 
-const database = [
+var activeUser; // after log in this will be the active user
+var database = [
   {
     username: "p",
-    password: "123",
+    password: "testuser",
   },
 
 ];
@@ -56,16 +57,18 @@ function model_dialog_close() {
 //  ------------- log in ------------- 
 function LogIn() {
 
-  // let user = document.getElementById("uname").value;
-  // let password = document.getElementById("psw").value;
-  // if (isUserValid(user,password)){
-  changeDiv("configuration");
-  // }
-  // else{
-  //         //TO DO - model dialog
-  //         alert("not good");
-  //     }
+  let user = document.getElementById("uname").value;
+  let password = document.getElementById("psw").value;
+  if (isUserValid(user, password)) {
+    changeDiv("configuration");
+  }
+  else {
+    //TO DO - model dialog
+    alert("wrong user or password, try again");
+  }
+
 }
+
 function isUserValid(user, pass) {
   for (let i = 0; i < database.length; i++) {
     if (database[i].username === user && database[i].password === pass) {
@@ -291,7 +294,7 @@ function checkConfigurationInputCorrect() {
   let selectKey = document.getElementById('selectKey');
   if (selectKey.value === '') {
     alert('Please select a key for shooting before proceeding.');
-    canPlay=false;
+    canPlay = false;
   } else {
     canPlay = true;
   }
