@@ -26,7 +26,7 @@
             </div>
 
             <div class="game_name">
-                Space Ship
+                SpaceShip
                 <br>
                 Game
             </div>
@@ -36,10 +36,8 @@
             </div>
 
             <div class="sign_log">
-                <button class="W_item" onclick="toggleDiv('sign_in')">Sign Up</button>
-                <button class="W_item" onclick="toggleDiv('log_in')">Login</button>
-                <!-- //delete this button -->
-                <button class="W_item" onclick="toggleDiv('play_game')">Play</button>
+                <button class="W_item" onclick="changeDiv('sign_in')">Sign Up</button>
+                <button class="W_item" onclick="changeDiv('log_in')">Login</button>
             </div>
 
             <div class="icons">
@@ -62,7 +60,7 @@
     <div id="menu" style="display:none;">
         <div class="toolbar">
 
-            <button class="item" onclick="toggleDiv('Welcome_div')">Welcome</button>
+            <button class="item" onclick="changeDiv('Welcome_div')">Welcome</button>
             <!-- <button class="item" onclick="model_dialog_open()">About</button> -->
         </div>
     </div>
@@ -123,7 +121,7 @@
                 <br />
                 <br />
                 <button type="submit" class="B_left">Sign up</button>
-                <button type="button" class="B_right" onclick="toggleDiv('Welcome_div')">Cancel</button>
+                <button type="button" class="B_right" onclick="changeDiv('Welcome_div')">Cancel</button>
 
             </div>
         </form>
@@ -163,7 +161,7 @@
                 <li>
                     <br /><br /><br />
                     <button type="button" class="B_left" onclick="LogIn()">Login</button>
-                    <button type="button" class="B_right" onclick="toggleDiv('Welcome_div')">Cancel</button>
+                    <button type="button" class="B_right" onclick="changeDiv('Welcome_div')">Cancel</button>
                 </li>
             </ul>
         </div>
@@ -187,34 +185,59 @@
                 <button type="button" class="config_button" id="playerButton2" onclick="ChoosePlayer(2)"></button>
                 <button type="button" class="config_button" id="playerButton3" onclick="ChoosePlayer(3)"></button>
                 <br /><br />
-                Choose Enemy Character:
-                <br />
-                <button type="button" class="config_button" id="enemyButton1" onclick="ChooseEnemy(1)"></button>
-                <button type="button" class="config_button" id="enemyButton2" onclick="ChooseEnemy(2)"></button>
-                <button type="button" class="config_button" id="enemyButton3" onclick="ChooseEnemy(3)"></button>
-                <br /><br />
+
 
                 Choose bullet for Player:
                 <br />
-                <button type="button" class="config_button" id="bulletButton1" onclick="Chooseshot(1)"></button>
-                <button type="button" class="config_button" id="bulletButton2" onclick="Chooseshot(2)"></button>
-                <button type="button" class="config_button" id="bulletButton3" onclick="Chooseshot(3)"></button>
+                <button type="button" class="config_button" id="bulletButton1" onclick="Chooseshot(2)"></button>
+                <button type="button" class="config_button" id="bulletButton2" onclick="Chooseshot(3)"></button>
+                <button type="button" class="config_button" id="bulletButton3" onclick="Chooseshot(4)"></button>
                 <br /><br />
 
                 Choose bullet for enemy:
                 <br />
-                <button type="button" class="config_button" id="EbulletButton1" onclick="ChooseshotE(1)"></button>
-                <button type="button" class="config_button" id="EbulletButton2" onclick="ChooseshotE(2)"></button>
-                <button type="button" class="config_button" id="EbulletButton3" onclick="ChooseshotE(3)"></button>
+                <button type="button" class="config_button" id="EbulletButton1" onclick="ChooseshotE(5)"></button>
+                <button type="button" class="config_button" id="EbulletButton2" onclick="ChooseshotE(6)"></button>
+                <button type="button" class="config_button" id="EbulletButton3" onclick="ChooseshotE(7)"></button>
                 <br /><br />
 
                 Choose Keyboard for Shooting: a-z or space
                 <br />
-                put input text
-                <br /><br />
+                <!-- UI component for user to select shooting key -->
+                <select id="selectKey">
+                    <option value="">Select a key for shooting</option>
+                    <!-- Add options for all the uppercase letters (A-Z) -->
+                    <option value=" ">Space</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                    <option value="H">H</option>
+                    <option value="I">I</option>
+                    <option value="J">J</option>
+                    <option value="K">K</option>
+                    <option value="L">L</option>
+                    <option value="M">M</option>
+                    <option value="N">N</option>
+                    <option value="O">O</option>
+                    <option value="P">P</option>
+                    <option value="Q">Q</option>
+                    <option value="R">R</option>
+                    <option value="S">S</option>
+                    <option value="T">T</option>
+                    <option value="U">U</option>
+                    <option value="V">V</option>
+                    <option value="W">W</option>
+                    <option value="X">X</option>
+                    <option value="Y">Y</option>
+                    <option value="Z">Z</option>
+                </select> <br /><br />
                 Choose Time For Game:
                 <br />
-                <input type="number" id="inputTime" min="20" max="300" step="30" value="20"> seconds
+                <input type="number" id="inputTime" min="120" max="300" step="30" value="120"> seconds
                 <br /><br />
 
                 <button type="button" id="play_game_btn" onclick="StartGame()">Play Game</button>
@@ -236,7 +259,16 @@
             <div class="header">
                 Hello
             </div>
-
+            <!-- Modal dialog or custom overlay for game over message -->
+            <div id="gameOverModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <p>Do you want to redefine configuration?</p>
+                    <div class="button-container">
+                        <button id="btnYes">Yes</button>
+                        <button id="btnNo">No</button>
+                    </div>
+                </div>
+            </div>
 
             <div class="canvas">
                 <canvas id="Canvas" class="canvas" frame="class" width="512" height="400"></canvas>
@@ -249,9 +281,7 @@
 
                 </audio>
 
-                <!-- //delete this button -->
-                <button type="button" id="play_game_btn" onclick="StartGame()">Play Game</button>
-                <!--  -->
+
                 <label for="featureUser">USER NAME:</label>
                 <br />
                 <input id="featureUser" type="text" readonly=true />

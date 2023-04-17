@@ -12,7 +12,7 @@ const database = [
 
 // Menu Div
 var div_visible = "Welcome_div";
-function toggleDiv(div_id) {
+function changeDiv(div_id) {
   // if (div_id == "sign_in" || div_id == "log_in"){
   //     document.getElementById("menu").style.display = 'block';
   // }
@@ -59,7 +59,7 @@ function LogIn() {
   // let user = document.getElementById("uname").value;
   // let password = document.getElementById("psw").value;
   // if (isUserValid(user,password)){
-  toggleDiv("configuration");
+  changeDiv("configuration");
   // }
   // else{
   //         //TO DO - model dialog
@@ -156,16 +156,16 @@ $(document).ready(function () {
       },)
       // let form = $("#sign_in_form");
       // form[0].reset();
-      toggleDiv('Welcome_div');
+      changeDiv('Welcome_div');
     }
   });
   $.validator.addMethod('pattern', function (value, element) {
     return this.optional(element) || /^(?=.*[a-zA-Z])(?=.*\d)/.test(value);
   }, "Password must contain at least one letter and one number");
-  $.validator.addMethod('isLettersOnly', function(value, element) {
+  $.validator.addMethod('isLettersOnly', function (value, element) {
     // Use a regular expression to match only letters (a-zA-Z)
     return this.optional(element) || /^[a-zA-Z]+$/.test(value);
-}, 'Please enter letters only.');
+  }, 'Please enter letters only.');
   $.validator.addMethod('isUserExist', function (user) {
     for (let i = 0; i < database.length; i++) {
       if (database[i].username == user) {
@@ -175,4 +175,134 @@ $(document).ready(function () {
     return false;
   });
 });
+
+//<--------------------------- Configuration -------------------------------->
+
+// choose Image for player 
+function ChoosePlayer(photo_number) {
+  playerPhoto = "photos/player_photo" + photo_number + ".png";
+}
+
+
+// choose Image for player bullet
+function Chooseshot(photo_number) {
+  shotImage = "photos/bullet_photo" + photo_number + ".png";
+}
+
+// choose Image for Enemy bullet
+function ChooseshotE(photo_number) {
+  enemyShotImage = "photos/bullet_photo" + photo_number + ".png";
+}
+
+document.getElementById('playerButton1').addEventListener('click', function () {
+  document.getElementById('playerButton1').classList.add('selected');
+  document.getElementById('playerButton2').classList.remove('selected');
+  document.getElementById('playerButton3').classList.remove('selected');
+});
+
+document.getElementById('playerButton2').addEventListener('click', function () {
+  document.getElementById('playerButton1').classList.remove('selected');
+  document.getElementById('playerButton2').classList.add('selected');
+  document.getElementById('playerButton3').classList.remove('selected');
+});
+
+document.getElementById('playerButton3').addEventListener('click', function () {
+  document.getElementById('playerButton1').classList.remove('selected');
+  document.getElementById('playerButton2').classList.remove('selected');
+  document.getElementById('playerButton3').classList.add('selected');
+});
+
+
+
+document.getElementById('bulletButton2').addEventListener('click', function () {
+  document.getElementById('bulletButton2').classList.add('selected');
+  document.getElementById('bulletButton3').classList.remove('selected');
+  document.getElementById('bulletButton1').classList.remove('selected');
+});
+
+document.getElementById('bulletButton3').addEventListener('click', function () {
+  document.getElementById('bulletButton2').classList.remove('selected');
+  document.getElementById('bulletButton3').classList.add('selected');
+  document.getElementById('bulletButton1').classList.remove('selected');
+});
+
+document.getElementById('bulletButton1').addEventListener('click', function () {
+  document.getElementById('bulletButton2').classList.remove('selected');
+  document.getElementById('bulletButton3').classList.remove('selected');
+  document.getElementById('bulletButton1').classList.add('selected');
+});
+
+
+
+document.getElementById('EbulletButton1').addEventListener('click', function () {
+  document.getElementById('EbulletButton1').classList.add('selected');
+  document.getElementById('EbulletButton2').classList.remove('selected');
+  document.getElementById('EbulletButton3').classList.remove('selected');
+});
+
+document.getElementById('EbulletButton2').addEventListener('click', function () {
+  document.getElementById('EbulletButton1').classList.remove('selected');
+  document.getElementById('EbulletButton2').classList.add('selected');
+  document.getElementById('EbulletButton3').classList.remove('selected');
+});
+
+document.getElementById('EbulletButton3').addEventListener('click', function () {
+  document.getElementById('EbulletButton1').classList.remove('selected');
+  document.getElementById('EbulletButton2').classList.remove('selected');
+  document.getElementById('EbulletButton3').classList.add('selected');
+});
+
+
+
+function checkConfigurationInputCorrect() {
+
+  if (document.getElementById('playerButton1').classList.contains('selected') ||
+    document.getElementById('playerButton2').classList.contains('selected') ||
+    document.getElementById('playerButton3').classList.contains('selected')) {
+    canPlay = true;
+  } else {
+    // Show an error message or take appropriate action
+    alert('Please select a player before proceeding!');
+    canPlay = false;
+    return;
+  }
+
+  if (document.getElementById('bulletButton1').classList.contains('selected') ||
+    document.getElementById('bulletButton2').classList.contains('selected') ||
+    document.getElementById('bulletButton3').classList.contains('selected')) {
+    canPlay = true;
+  } else {
+    // Show an error message or take appropriate action
+    alert('Please select a bullet for the player before proceeding!');
+    canPlay = false;
+    return;
+  }
+
+  if (document.getElementById('EbulletButton1').classList.contains('selected') ||
+    document.getElementById('EbulletButton2').classList.contains('selected') ||
+    document.getElementById('EbulletButton3').classList.contains('selected')) {
+    canPlay = true;
+  } else {
+    // Show an error message or take appropriate action
+    alert('Please select a bullet for the enemies before proceeding!');
+    canPlay = false;
+    return;
+  }
+  let selectKey = document.getElementById('selectKey');
+  if (selectKey.value === '') {
+    alert('Please select a key for shooting before proceeding.');
+    canPlay=false;
+  } else {
+    canPlay = true;
+  }
+  return canPlay;
+}
+
+// Add event listener to capture user's key selection
+document.getElementById('selectKey').addEventListener('change', function (e) {
+  // Update shooting key with user's selected value
+  shootingKey = e.target.value.toLowerCase();
+});
+
+// JavaScript code for handling game over event and button click event
 

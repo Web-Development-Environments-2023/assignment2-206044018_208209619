@@ -24,7 +24,6 @@ var shotSize = 10;
 var shotsArray;
 var shootPlayerArray;
 var lastShotTime;
-var enemyPhoto;
 var playerPhoto;
 var shotImage;
 var enemyShotImage;
@@ -41,8 +40,8 @@ var extraLifeSound;
 var gameOverSound;
 var backgroundMusic;
 var WinSound;
-var time; // variable to keep track of time
-var timerInterval; // variable to store the interval ID
+var time;
+var timerInterval;
 var userTimeInput;
 var timeOver;
 var playButton;
@@ -52,96 +51,30 @@ var clockFlag;
 var clockImg;
 var clockRandomX;
 var clockRandomY;
-var heartAndClockImgSize = 15;
+var heartAndClockImgSize = 20;
+var canPlay;
+var shootingKey;
+// Get modal element and buttons
+var modal;
+var btnYes;
+var btnNo;
 
-//<-------------------------------------- Configuration -------------------------------------->
-
-// choose Image for player 
-function ChoosePlayer(photo_number) {
-    if (photo_number == 1) {
-        playerPhoto = "photos/player_photo1.jpg";
-    }
-    if (photo_number == 2) {
-        playerPhoto = "photos/player_photo2.jpg";
-    }
-    if (photo_number == 3) {
-        playerPhoto = "photos/player_photo3.jpg";
-    }
-
-}
-
-// choose Image for Enemy
-function ChooseEnemy(photo_number) {
-    if (photo_number == 1) {
-        enemyPhoto = "photos/enemy_photo1.jpg";
-    }
-    if (photo_number == 2) {
-        enemyPhoto = "photos/enemy_photo2.jpg";
-    }
-    if (photo_number == 3) {
-        enemyPhoto = "photos/enemy_photo3.jpg";
-    }
-}
-
-// choose Image for player bullet
-function Chooseshot(photo_number) {
-    if (photo_number == 1) {
-        shotImage = "photos/bullet_photo1.png";
-    }
-    if (photo_number == 2) {
-        shotImage = "photos/bullet_photo2.png";
-    }
-    if (photo_number == 3) {
-        shotImage = "photos/bullet_photo3.png";
-    }
-
-}
-
-// choose Image for Enemy bullet
-function ChooseshotE(photo_number) {
-    if (photo_number == 1) {
-        enemyShotImage = "photos/bullet_photo4.png";
-    }
-    if (photo_number == 2) {
-        enemyShotImage = "photos/bullet_photo2.png";
-    }
-    if (photo_number == 3) {
-        enemyShotImage = "photos/bullet_photo3.png";
-    }
-
-}
 
 //<-------------------------------------- Play Game -------------------------------------->
 
 //------- Start Game--------
 function StartGame() {
-    if (!checkConfigurationInput()) {
+    if (!checkConfigurationInputCorrect()) {
         return;
     }
-    toggleDiv("play_game");
+    changeDiv("play_game");
     setupGame();
-
 }
-function checkConfigurationInput() {
-    // Get the user-specified time from the input field
-    userTimeInput = document.getElementById("inputTime").value;
-    // Convert the user input to a number
-    time = parseInt(userTimeInput, 10);
-    // Validate the user input to ensure it's a positive number
-    if (!isNaN(time) && time > 0) {
-        return true;
-    } else {
-        // Display an error message for invalid input
-        alert("Please enter a valid positive number for time.");
-    }
-    
-}
-
 
 //-------initialize the game-------
 
 function setupGame() {
-
+    // Store the user's selected key
     canvas = document.getElementById("Canvas");
     context = canvas.getContext("2d");
 
@@ -151,7 +84,6 @@ function setupGame() {
 
     playButton = document.getElementById('playButton');
     pauseButton = document.getElementById('pauseButton');
-    // Check for keys pressed where key represents the keycode captured
     addEventListener("keydown", function (e) {
         e.preventDefault();
         updatePlayerPosition(e.keyCode);
@@ -168,15 +100,16 @@ function setupGame() {
     pauseButton.addEventListener('click', function () {
         backgroundMusic.pause(); // Pause the background music
     });
-    // add event listener for space bar key press
-    addEventListener("keydown", function (e) {
-        if (e.keyCode === 32) {
+    // Add event listener for shooting using the user's selected key
+    addEventListener('keydown', function (e) {
+        if (shootingKey && e.key.toLowerCase() === shootingKey) { // use shootingKey to detect user's selected key
             handle_shots();
         }
     }, false);
 
+
     backgroundMusic = document.getElementById('backgroundMusic'); // Access the audio element by its ID
-    backgroundMusic.volume = 0.3; 
+    backgroundMusic.volume = 0.1;
 
     enemyDeathSound = new Audio('photos/shortEnemyHit.mp4');
     enemyDeathSound.volume = 0.5;
@@ -205,6 +138,13 @@ function setupGame() {
 
     clockImg = new Image(heartAndClockImgSize, heartAndClockImgSize);
     clockImg.src = "photos/clockImg.png";
+
+
+    userTimeInput = document.getElementById('inputTime').value;;
+    time = parseInt(userTimeInput);
+
+
+
 }
 
 // -------initialize the player------- 
@@ -233,8 +173,8 @@ function init_enemies() {
     moveDirection = "right"; // initialize move direction to right
     enemySpeed = 1;
     shootPlayerSpeed = 1;
-    enemyImage = new Image(enemySizeWeight, enemySizeHeight);
-    enemyImage.src = enemyPhoto;
+
+    let enemyImageRow = 1;
     let padding = 30;
     let enemyScore = 20;
     enemiesArray = new Array(4);
@@ -251,12 +191,16 @@ function init_enemies() {
             initPositionX = initPositionX + enemySizeWeight + padding;
             enemiesArray[i][j].y = initPositionY;
             enemiesArray[i][j].alive = true;
+            let enemyImage = new Image(enemySizeWeight, enemySizeHeight);
+            enemyImage.src = "photos/enemy" + enemyImageRow + ".png";
             enemiesArray[i][j].image = enemyImage;
             enemiesArray[i][j].score = enemyScore;
 
         }
         initPositionY = initPositionY + enemySizeHeight + padding;
         enemyScore -= 5;
+        enemyImageRow += 1;
+
     }
 
 }
@@ -317,7 +261,7 @@ function resetHeartAndClock() {
 function exit_game() {
     reset();
     setupGame();
-    toggleDiv('Welcome_div');
+    changeDiv('Welcome_div');
     StartedGame = false;
     backgroundMusic.pause();
 
@@ -328,11 +272,11 @@ function exit_game() {
 function game_loop() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     if (checkWinOrLose()) {
-        context.clearRect(0, 0, canvas.width, canvas.height);
         window.clearInterval(intervalTimer);
         StartedGame = false;
         stopTimer();
         backgroundMusic.pause();
+        showGameOverMessage();
         return;
     }
     draw_player(spacehero.originX, spacehero.originY);
@@ -356,39 +300,30 @@ function game_loop() {
 function checkWinOrLose() {
     if (spacehero.alive) {
         if (checkAllEnemiesDead()) { //space hero killed all enemies
-            console.log("win- Champion!");
+            showWinOrLoseMessage('Champion!');
             const WinSoundInstance = WinSound.cloneNode();
             WinSoundInstance.play();
-            const newcan = document.getElementById('Canvas');
-            newcan.className = 'canvas-bg-winning';
-            context.clearRect(0, 0, canvas.width, canvas.height);
             return true;
         }
     }
 
     else { //spacehero is dead
-        console.log("You Lost - space hero died");
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        showWinOrLoseMessage('You Lost!');
         const gameOverSoundInstance = gameOverSound.cloneNode();
         gameOverSoundInstance.play();
-        const newcan = document.getElementById('Canvas');
-        newcan.className = 'canvas-bg-losing';
-        context.clearRect(0, 0, canvas.width, canvas.height);
         return true;
     }
     if (timeOver) { //time over
         if (totalScore < 100) {
-            console.log("you can do better than " + totalScore + " points!");
+            YouCanDoBetterMsg('You can do better than ' + totalScore + ' points!');
             const gameOverSoundInstance = gameOverSound.cloneNode();
             gameOverSoundInstance.play();
         }
         else {
-            console.log("Winner " + totalScore + " points!");
+            showWinOrLoseMessage('Winner ' + totalScore + ' points!');
             const WinSoundInstance = WinSound.cloneNode();
             WinSoundInstance.play();
         }
-        const newcan = document.getElementById('Canvas');
-        newcan.className = 'canvas-bg-timeOver';
         return true;
     }
     return false;
@@ -489,14 +424,13 @@ function draw_player(originX, originY) {
 };
 
 //<-------draw enemies------->
-
 function draw_enemies() {
     // context.clearRect(0, 0, canvas.width, canvas.height * 0.6);
     for (let i = 0; i < enemiesArray.length; i++) {
         for (let j = 0; j < enemiesArray[i].length; j++) {
             let enemy = enemiesArray[i][j];
             if (enemy.alive) {
-                context.drawImage(enemyImage, enemiesArray[i][j].x, enemiesArray[i][j].y, enemySizeWeight, enemySizeHeight);
+                context.drawImage(enemy.image, enemiesArray[i][j].x, enemiesArray[i][j].y, enemySizeWeight, enemySizeHeight);
             }
         }
     }
@@ -527,7 +461,7 @@ function init_shotEnemies() {
 
 // initialize the shoot player
 function init_shootPlayer() {
-    
+
     enemyShotImage1 = new Image(playerSizeWidth, playerSizeHeight);
     enemyShotImage1.src = enemyShotImage;
 
@@ -625,7 +559,7 @@ function shootPlayer() {
     }
 }
 function createShootEnemies() {
-    
+
     shotImage1 = new Image(shotSize, shotSize);
     shotImage1.src = shotImage;
 
@@ -714,7 +648,7 @@ function updateShootPlayerPosition(curShot) {
 
 function drawShootPlayer(curShot) {
     if (curShot.shotAlive) {
-        context.drawImage(enemyShotImage1, curShot.x, curShot.y, shotSize, shotSize); 
+        context.drawImage(enemyShotImage1, curShot.x, curShot.y, shotSize, shotSize);
         // context.fillStyle = "white"; // Set color of the shot
         // context.fillRect(curShot.x, curShot.y, shotSize, shotSize); // Draw a rectangle to represent the shot
     }
@@ -802,3 +736,90 @@ function checkCollideWithClock() {
         clockFlag = true;
     }
 }
+
+function showWinOrLoseMessage(message) {
+    // Clear the canvas
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Set the font style for the win message
+    context.font = "bold 50px 'Permanent Marker', cursive";
+    context.fillStyle = 'white';
+    context.textAlign = 'center';
+
+    // Add text shadow
+    context.shadowColor = 'rgba(0, 0, 0, 0.5)';
+    context.shadowBlur = 10;
+    context.shadowOffsetX = 5;
+    context.shadowOffsetY = 5;
+
+    // Write the win message on the canvas
+    context.fillText(message, canvas.width / 2, canvas.height / 2);
+}
+
+function YouCanDoBetterMsg(message) {
+    // Clear the canvas
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Set the initial font size
+    let fontSize = 30;
+
+    // Set the font style for the win message
+    context.font = `bold ${fontSize}px 'Permanent Marker', cursive`;
+    context.fillStyle = 'white';
+    context.textAlign = 'center';
+
+    // Add text shadow
+    context.shadowColor = 'rgba(0, 0, 0, 0.5)';
+    context.shadowBlur = 10;
+    context.shadowOffsetX = 5;
+    context.shadowOffsetY = 5;
+
+    // Write the win message on the canvas
+    context.fillText(message, canvas.width / 2, canvas.height / 2);
+}
+
+
+// Get modal element and buttons
+modal = document.getElementById('gameOverModal');
+btnYes = document.getElementById('btnYes');
+btnNo = document.getElementById('btnNo');
+// Get the modal overlay and modal content
+var modalOverlay = document.getElementById('gameOverModal');
+var modalContent = document.querySelector('.modal-content');
+
+
+// Add event listener to game over event or condition where you want to show the message
+function showGameOverMessage() {
+    modal.style.display = 'block';
+}
+
+// Add event listener to Yes button
+btnYes.addEventListener('click', () => {
+    // Define action for Yes button
+    changeDiv("configuration");
+    exit_game();
+    console.log('Yes button clicked');
+});
+
+// Add event listener to No button
+btnNo.addEventListener('click', () => {
+    // Define action for No button
+    // e.g. Close the modal or do nothing
+    console.log('No button clicked');
+});
+
+// To close the modal if clicked outside of the modal content
+modal.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+
+
+// Add event listener to modal overlay to close modal on click outside modal content
+modalOverlay.addEventListener('click', function(event) {
+    if (event.target === modalOverlay) {
+        modalOverlay.style.display = 'none';
+    }
+});
+
