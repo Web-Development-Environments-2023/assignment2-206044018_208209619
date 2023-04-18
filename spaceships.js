@@ -5,11 +5,25 @@ var database = [
   {
     username: "p",
     password: "testuser",
-    scores:[],
+    scores: [],
   },
 
 ];
+// Function to add event listener for game controls
+function addGameControlsListener() {
+  addEventListener("keydown", gameControlsHandler, false);
+}
 
+// Function to remove event listener for game controls
+function removeGameControlsListener() {
+  removeEventListener("keydown", gameControlsHandler, false);
+}
+
+// Event handler for game controls
+function gameControlsHandler(e) {
+  e.preventDefault();
+  updatePlayerPosition(e.keyCode);
+}
 // const modal1 = document.querySelector('#myDialog');
 // const openModal1 = document.querySelector('.open-button');
 // const closeModal1 = document.querySelector('.close-button');
@@ -20,20 +34,22 @@ var div_visible = "Welcome_div";
 function changeDiv(div_id) {
 
 
-  if (div_id == "play_game"){
+  if (div_id == "play_game") {
     document.getElementById(div_visible).style.display = 'none';
     document.getElementById(div_id).style.display = 'block';
     div_visible = div_id;
     document.body.style.background = "url('photos/space_star.jpg')";
-    document.body.style.backgroundSize='cover';  
+    document.body.style.backgroundSize = 'cover';
+    addGameControlsListener();
   }
 
-  else{
+  else {
+    removeGameControlsListener();
     document.getElementById(div_visible).style.display = 'none';
     document.getElementById(div_id).style.display = 'block';
     div_visible = div_id;
     document.body.style.background = "url('photos/space2.gif')";
-    document.body.style.backgroundSize='cover';  
+    document.body.style.backgroundSize = 'cover';
   }
 }
 
@@ -64,21 +80,27 @@ function LogIn() {
   let password = document.getElementById("psw").value;
   if (isUserValid(user, password)) {
     changeDiv("configuration");
-    activeUser=user;
-  }
-  else {
-    //TO DO - model dialog
-    alert("wrong user or password, try again");
-  }
+    activeUser = user;
 
+    //reset:
+    document.getElementById("uname").value = "";
+    document.getElementById("psw").value = "";
+  }
 }
 
 function isUserValid(user, pass) {
   for (let i = 0; i < database.length; i++) {
-    if (database[i].username === user && database[i].password === pass) {
-      return true;
+    if (database[i].username === user) {
+      if (database[i].password === pass) {
+        return true;
+      }
+      else{ // found the user but its not his password
+        alert("Wrong password");
+        return false;
+      }
     }
   }
+  alert("User does not exist");
   return false;
 }
 
@@ -90,7 +112,7 @@ $(document).ready(function () {
     rules: {
       username: {
         required: true,
-        isUserExist: true 
+        isUserExist: true
       },
       password: {
         required: true,
@@ -154,15 +176,17 @@ $(document).ready(function () {
     },
 
     submitHandler: function () {
-      // TO DO: check if the new user added to the database and if the form reset automaticly without the code
       let user1 = document.getElementById("username").value;
       let password1 = document.getElementById("password").value;
       database.push({
         username: user1,
         password: password1,
       },)
-      console.log(user1+" and "+password1+" added to the database");
-      document.getElementById("sign_in_form").reset();
+      console.log(user1 + " and " + password1 + " added to the database");
+      //reset the form: TODO
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+      //change back to welcome div
       changeDiv('Welcome_div');
     }
   });
