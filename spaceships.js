@@ -1,13 +1,19 @@
 
 //Vars 
 var activeUser; // after log in this will be the active user
+var userTimeInput;
+
 var database = [
   {
     username: "p",
     password: "testuser",
     scores: [],
   },
-
+  {
+    username: "a",
+    password: "a",
+    scores: [],
+  },
 ];
 // Function to add event listener for game controls
 function addGameControlsListener() {
@@ -32,7 +38,13 @@ function gameControlsHandler(e) {
 // Menu Div
 var div_visible = "Welcome_div";
 function changeDiv(div_id) {
-
+  if(div_visible=="sign_in"){
+    resetFormSignIn();
+  }
+  if(div_visible=="log_in"){
+    resetLogin();
+  }
+  
 
   if (div_id == "play_game") {
     document.getElementById(div_visible).style.display = 'none';
@@ -41,6 +53,7 @@ function changeDiv(div_id) {
     document.body.style.background = "url('photos/space_star.jpg')";
     document.body.style.backgroundSize = 'cover';
     addGameControlsListener();
+    return;
   }
 
   else {
@@ -51,9 +64,22 @@ function changeDiv(div_id) {
     document.body.style.background = "url('photos/space2.gif')";
     document.body.style.backgroundSize = 'cover';
   }
+  if(div_visible=="configuration"){
+    resetConfig();
+  }
 }
 
 
+
+function changeToHome(toDiv) {
+  if (div_visible == "play_game") {
+    exit_game();
+  }
+  else {
+    changeDiv(toDiv)
+  }
+
+}
 
 // Model Dialog for about
 function model_dialog_open() {
@@ -63,6 +89,13 @@ function model_dialog_close() {
   document.getElementById("myDialog").close();
 }
 
+document.getElementById("myDialog").addEventListener("click", function(event) {
+  // Close the dialog if the click target is the overlay element
+  if (event.target == this) {
+    this.close();
+  }
+});
+
 // Model Dialog for instraction
 function insta_dialog_open() {
   document.getElementById("myInstraction").showModal();
@@ -70,6 +103,14 @@ function insta_dialog_open() {
 function insta_dialog_close() {
   document.getElementById("myInstraction").close();
 }
+
+document.getElementById("myInstraction").addEventListener("click", function(event) {
+  // Close the dialog if the click target is the overlay element
+  if (event.target == this) {
+    this.close();
+  }
+});
+
 
 
 
@@ -82,9 +123,7 @@ function LogIn() {
     changeDiv("configuration");
     activeUser = user;
 
-    //reset:
-    document.getElementById("uname").value = "";
-    document.getElementById("psw").value = "";
+    resetLogin();
   }
 }
 
@@ -94,7 +133,7 @@ function isUserValid(user, pass) {
       if (database[i].password === pass) {
         return true;
       }
-      else{ // found the user but its not his password
+      else { // found the user but its not his password
         alert("Wrong password");
         return false;
       }
@@ -102,6 +141,14 @@ function isUserValid(user, pass) {
   }
   alert("User does not exist");
   return false;
+}
+function cancelLogIn(){
+  resetLogin();
+  changeDiv('Welcome_div');
+}
+function resetLogin(){
+  document.getElementById("uname").value = "";
+  document.getElementById("psw").value = "";
 }
 
 //  ------------- Sign in ------------- 
@@ -135,7 +182,7 @@ $(document).ready(function () {
       },
       email: {
         required: true,
-        email: true
+        validEmail: true
       },
       birthday: {
         required: true
@@ -167,8 +214,8 @@ $(document).ready(function () {
         isLettersOnly: "Your name must contain letters only"
       },
       email: {
-        required: "Please enter a password",
-        email: "Invalid email address, Please enter a valid email address"
+        required: "Please enter your email",
+        validEmail: "Please enter a valid email address"
       },
       birthday: {
         required: "Please enter your birthday"
@@ -183,10 +230,7 @@ $(document).ready(function () {
         password: password1,
       },)
       console.log(user1 + " and " + password1 + " added to the database");
-      //reset the form: TODO
-      document.getElementById("username").value = "";
-      document.getElementById("password").value = "";
-      //change back to welcome div
+      resetFormSignIn();
       changeDiv('Welcome_div');
     }
   });
@@ -197,6 +241,9 @@ $(document).ready(function () {
     // Use a regular expression to match only letters (a-zA-Z)
     return this.optional(element) || /^[a-zA-Z]+$/.test(value);
   }, 'Please enter letters only.');
+  $.validator.addMethod('validEmail', function (value, element) {
+    return this.optional(element) || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }, 'Please enter a valid email address.');
   $.validator.addMethod('isUserExist', function (user) {
     for (let i = 0; i < database.length; i++) {
       if (database[i].username === user) {
@@ -206,7 +253,21 @@ $(document).ready(function () {
     return true; // should return true when user does not exist
   });
 });
+function resetFormSignIn() {
+  $("#sign_in_form").validate().resetForm();
+  document.getElementById("username").value = "";
+  document.getElementById("password").value = "";
+  document.getElementById("confirm_password").value = "";
+  document.getElementById("firstname").value = "";
+  document.getElementById("lastname").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("birthday").value = "";
+}
 
+function cancelSignin() {
+  resetFormSignIn();
+  changeDiv('Welcome_div');
+}
 //<--------------------------- Configuration -------------------------------->
 
 // choose Image for player 
@@ -287,6 +348,7 @@ document.getElementById('EbulletButton3').addEventListener('click', function () 
 
 function checkConfigurationInputCorrect() {
 
+
   if (document.getElementById('playerButton1').classList.contains('selected') ||
     document.getElementById('playerButton2').classList.contains('selected') ||
     document.getElementById('playerButton3').classList.contains('selected')) {
@@ -323,9 +385,22 @@ function checkConfigurationInputCorrect() {
   if (selectKey.value === '') {
     alert('Please select a key for shooting before proceeding.');
     canPlay = false;
+    return;
   } else {
     canPlay = true;
   }
+
+  var inputTime = document.getElementById("inputTime");
+  //check if the time input is a valid number:
+  if (inputTime.value.trim() !== '' && Number(inputTime.value) >= Number(inputTime.min) && Number(inputTime.value) <= Number(inputTime.max)) {
+    canplay = true;
+  } else {
+    alert('Please select a valid time for the game before proceeding.');
+    canPlay = false;
+    return;
+  }
+
+
   return canPlay;
 }
 
@@ -335,5 +410,22 @@ document.getElementById('selectKey').addEventListener('change', function (e) {
   shootingKey = e.target.value.toLowerCase();
 });
 
-// JavaScript code for handling game over event and button click event
+//resets all configuration choices
+function resetConfig() {
 
+  document.querySelectorAll('#playerButton1, #playerButton2, #playerButton3').forEach(function (button) {
+    button.classList.remove('selected');
+  });
+
+  document.querySelectorAll('#bulletButton1, #bulletButton2, #bulletButton3').forEach(function (button) {
+    button.classList.remove('selected');
+  });
+
+  document.querySelectorAll('#EbulletButton1, #EbulletButton2, #EbulletButton3').forEach(function (button) {
+    button.classList.remove('selected');
+  });
+
+  document.getElementById('selectKey').selectedIndex = 0;
+  document.getElementById('inputTime').value = 120;
+
+}

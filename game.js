@@ -8,8 +8,8 @@ var keysDown;
 var playerSizeWidth = 30;
 var playerSizeHeight = 30;
 var StartedGame = false;
-var enemySizeWeight = 20;
-var enemySizeHeight = 20;
+var enemySizeWeight = 30;
+var enemySizeHeight = 30;
 var spacehero;
 var spaceheroImage;
 var canvas;
@@ -42,7 +42,6 @@ var backgroundMusic;
 var WinSound;
 var time;
 var timerInterval;
-var userTimeInput;
 var timeOver;
 var playButton;
 var pauseButton;
@@ -51,7 +50,7 @@ var clockFlag;
 var clockImg;
 var clockRandomX;
 var clockRandomY;
-var heartAndClockImgSize = 20;
+var heartAndClockImgSize = 25;
 var canPlay;
 var shootingKey;
 // Get modal element and buttons
@@ -59,7 +58,7 @@ var modal;
 var btnYes;
 var btnNo;
 var table;
-
+var currentTimeChosen;
 //<-------------------------------------- Play Game -------------------------------------->
 
 //------- Start Game--------
@@ -67,8 +66,9 @@ function StartGame() {
     if (!checkConfigurationInputCorrect()) {
         return;
     }
-    changeDiv("play_game");
     setupGame();
+    resetConfig();
+    changeDiv("play_game");
     document.getElementById("featureUser").textContent = activeUser;
 
 }
@@ -86,22 +86,28 @@ function setupGame() {
 
     playButton = document.getElementById('playButton');
     pauseButton = document.getElementById('pauseButton');
-
-    // addEventListener("keyup", function (e) { delete keysDown[e.keyCode]; }, false);
-    addEventListener("keyup", function (e) {
-        if (typeof keysDown === 'undefined' || keysDown === null) {
-          keysDown = {}; // initialize keysDown as an empty object
-        }
+    // 
+    window.addEventListener('keydown', function (e) {
+        keysDown[e.keyCode] = true;
+     });
+     window.addEventListener('keyup', function (e) {
         delete keysDown[e.keyCode];
-      }, false);
+     });
+    //  
+    // addEventListener("keyup", function (e) {
+    //     if (typeof keysDown === 'undefined' || keysDown === null) {
+    //       keysDown = {}; // initialize keysDown as an empty object
+    //     }
+    //     delete keysDown[e.keyCode];
+    //   }, false);
+
     document.getElementById("new_game_btn").addEventListener("click", new_game, false);
     document.getElementById("new_game_btn").addEventListener("click", new_game, false);
-    // Add event listener for play button click
+    
     playButton.addEventListener('click', function () {
         backgroundMusic.play(); // Play the background music
     });
 
-    // Add event listener for pause button click
     pauseButton.addEventListener('click', function () {
         backgroundMusic.pause(); // Pause the background music
     });
@@ -141,7 +147,7 @@ function setupGame() {
     heartImg.src = "photos/heart.png";
 
     clockImg = new Image(heartAndClockImgSize, heartAndClockImgSize);
-    clockImg.src = "photos/clockImg.png";
+    clockImg.src = "photos/oldClockImg.png";
 
 
     userTimeInput = document.getElementById('inputTime').value;;
@@ -159,7 +165,7 @@ function init_player() {
     spacehero.speed = 10;
     spacehero.alive = true;
 
-    shotEnemiesSpeed = 2;
+    shotEnemiesSpeed = 3;
     firstShootPlayer = true;
 
 
@@ -215,7 +221,7 @@ function new_game() {
     canvas.focus();
     StartedGame = true;   ///To Do:  if the game stops = > change this to false
     reset();
-    intervalTimer = setInterval(game_loop, 1000 / 60);
+    intervalTimer = setInterval(game_loop, 10);
     startTimer();
 
 };
@@ -870,15 +876,15 @@ function displayScoreHistory(activeUser) {
       // Define table properties
       var tableWidth = 600;
       var tableHeight = (Math.min(user.scores.length, 10) + 1) * 30; // Rows + header, limit to 10 scores
-      var tableX = (canvas.width - tableWidth) / 2 + 100; // Center horizontally
-      var tableY = (canvas.height - tableHeight) / 2; // Center vertically
+      var tableX = (canvas.width - tableWidth) / 2 + 120; // Center horizontally
+      var tableY = (canvas.height - tableHeight) / 2 +50; // Center vertically
       var rowHeight = 30;
       var colWidth = 200;
       var headerColor = "white";
       var rowColor = "white";
       var textColor = "white";
-      var headerFont = "bold 18px Arial";
-      var rowFont = "16px Arial";
+      var headerFont = "bold 20px fantasy";
+      var rowFont = "16px fantasy";
   
       // Draw table header
       context.fillStyle = headerColor;
