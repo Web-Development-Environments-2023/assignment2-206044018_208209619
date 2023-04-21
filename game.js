@@ -5,10 +5,10 @@ var intervalTimer;
 var intervalTimer2;
 var then;
 var keysDown;
-var playerSizeWidth = 30;
-var playerSizeHeight = 30;
+var playerSizeWidth = 35;
+var playerSizeHeight = 35;
 var StartedGame = false;
-var enemySizeWeight = 30;
+var enemySizeWeight = 35;
 var enemySizeHeight = 30;
 var spacehero;
 var spaceheroImage;
@@ -53,12 +53,13 @@ var clockRandomY;
 var heartAndClockImgSize = 25;
 var canPlay;
 var shootingKey;
-// Get modal element and buttons
 var modal;
 var btnYes;
 var btnNo;
 var table;
 var currentTimeChosen;
+var keysDown = {};
+
 //<-------------------------------------- Play Game -------------------------------------->
 
 //------- Start Game--------
@@ -86,24 +87,18 @@ function setupGame() {
 
     playButton = document.getElementById('playButton');
     pauseButton = document.getElementById('pauseButton');
-    // 
+
+    // Add event listeners for keydown and keyup
     window.addEventListener('keydown', function (e) {
         keysDown[e.keyCode] = true;
-     });
-     window.addEventListener('keyup', function (e) {
+    });
+    window.addEventListener('keyup', function (e) {
         delete keysDown[e.keyCode];
-     });
-    //  
-    // addEventListener("keyup", function (e) {
-    //     if (typeof keysDown === 'undefined' || keysDown === null) {
-    //       keysDown = {}; // initialize keysDown as an empty object
-    //     }
-    //     delete keysDown[e.keyCode];
-    //   }, false);
+    });
 
     document.getElementById("new_game_btn").addEventListener("click", new_game, false);
     document.getElementById("new_game_btn").addEventListener("click", new_game, false);
-    
+
     playButton.addEventListener('click', function () {
         backgroundMusic.play(); // Play the background music
     });
@@ -146,7 +141,7 @@ function setupGame() {
     heartImg = new Image(heartAndClockImgSize, heartAndClockImgSize);
     heartImg.src = "photos/heart.png";
 
-    clockImg = new Image(heartAndClockImgSize, heartAndClockImgSize);
+    clockImg = new Image(heartAndClockImgSize + 10, heartAndClockImgSize + 10);
     clockImg.src = "photos/oldClockImg.png";
 
 
@@ -160,7 +155,6 @@ function setupGame() {
 // -------initialize the player------- 
 
 function init_player() {
-    // Hero image
     spacehero = new Object();
     spacehero.speed = 10;
     spacehero.alive = true;
@@ -219,7 +213,7 @@ function init_enemies() {
 
 function new_game() {
     canvas.focus();
-    StartedGame = true;   ///To Do:  if the game stops = > change this to false
+    StartedGame = true;
     reset();
     intervalTimer = setInterval(game_loop, 10);
     startTimer();
@@ -262,12 +256,13 @@ function resetHeartAndClock() {
     const maxY = canvas.height - heartAndClockImgSize;
     heartRandomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
     heartFlag = false;
-    clockRandomX = 20 + Math.random() * (canvas.width - heartAndClockImgSize - 20);
-    const clockminY = canvas.height - (canvas.height * 0.4) + heartAndClockImgSize;
+    clockRandomX = 30 + Math.random() * (canvas.width - heartAndClockImgSize - 20);
+    const clockminY = canvas.height - (canvas.height * 0.4) + heartAndClockImgSize + 10;
     const clockmaxY = canvas.height - heartAndClockImgSize;
     clockRandomY = Math.floor(Math.random() * (clockmaxY - clockminY + 1)) + clockminY;
     clockFlag = false;
 }
+
 // --exit game function--
 function exit_game() {
     reset();
@@ -300,12 +295,10 @@ function game_loop() {
         drawExtraLife();
         checkCollideWithHeart();
     }
-    if (time <= 120 && clockFlag == false) {
+    if (time <= 110 && clockFlag == false) {
         drawExtraTime();
         checkCollideWithClock();
     }
-
-
 
 }
 
@@ -315,7 +308,7 @@ function checkWinOrLose() {
             showWinOrLoseMessage('Champion!');
             const WinSoundInstance = WinSound.cloneNode();
             WinSoundInstance.play();
-            saveScore(activeUser, totalScore,"Win");
+            saveScore(activeUser, totalScore, "Win");
             return true;
         }
     }
@@ -324,7 +317,7 @@ function checkWinOrLose() {
         showWinOrLoseMessage('You Lost!');
         const gameOverSoundInstance = gameOverSound.cloneNode();
         gameOverSoundInstance.play();
-        saveScore(activeUser, totalScore,"Lose");
+        saveScore(activeUser, totalScore, "Lose");
 
         return true;
     }
@@ -333,14 +326,14 @@ function checkWinOrLose() {
             YouCanDoBetterMsg('You can do better than ' + totalScore + ' points!');
             const gameOverSoundInstance = gameOverSound.cloneNode();
             gameOverSoundInstance.play();
-            saveScore(activeUser, totalScore,"Lose");
+            saveScore(activeUser, totalScore, "Lose");
 
         }
         else {
             showWinOrLoseMessage('Winner ' + totalScore + ' points!');
             const WinSoundInstance = WinSound.cloneNode();
             WinSoundInstance.play();
-            saveScore(activeUser, totalScore,"Win");
+            saveScore(activeUser, totalScore, "Win");
 
         }
         return true;
@@ -444,7 +437,6 @@ function draw_player(originX, originY) {
 
 //<-------draw enemies------->
 function draw_enemies() {
-    // context.clearRect(0, 0, canvas.width, canvas.height * 0.6);
     for (let i = 0; i < enemiesArray.length; i++) {
         for (let j = 0; j < enemiesArray[i].length; j++) {
             let enemy = enemiesArray[i][j];
@@ -466,7 +458,6 @@ function updateSpeed() {
         lastSpeedTime = currentSpeedTime;
         enemySpeed += 1;
         shootPlayerSpeed += 0.5;
-
     }
 }
 
@@ -483,7 +474,6 @@ function init_shootPlayer() {
 
     enemyShotImage1 = new Image(playerSizeWidth, playerSizeHeight);
     enemyShotImage1.src = enemyShotImage;
-
     shootPlayerArray = new Array();
 }
 
@@ -504,7 +494,6 @@ function handle_shots() {
         shot.shotAlive = true;
         shotsArray.push(shot);
     }
-
 
 }
 
@@ -530,7 +519,6 @@ function updateShotEnemiesPosition(curShot) {
                     // Update score or other game mechanics as needed
                     totalScore += enemy.score;
                     document.getElementById("featureScore").textContent = totalScore + " Points";
-
                     return;
                 }
             }
@@ -549,8 +537,7 @@ function updateShotEnemiesPosition(curShot) {
 function drawshotEnemies(curShot) {
     if (curShot.shotAlive) {
         context.drawImage(shotImage1, curShot.x, curShot.y, shotSize, shotSize); //TO DO ->draw with image
-        // context.fillStyle = "red"; // Set color of the shot
-        // context.fillRect(curShot.x, curShot.y, shotSize, shotSize); // Draw a rectangle to represent the shot
+
     }
     else {
         // removes dead shot from the array
@@ -586,7 +573,6 @@ function createShootEnemies() {
     shot = new Object();
     //choose random enemy
     let enemy = randomAliveEnemyToShoot();
-    // let enemy = enemiesArray[0][0];
     shot.x = enemy.x + (enemySizeWeight / 2) - (shotSize / 2);
     shot.y = enemy.y - shotSize;
     shot.speed = shootPlayerSpeed;
@@ -594,10 +580,7 @@ function createShootEnemies() {
     shootPlayerArray.push(shot);
 }
 function randomAliveEnemyToShoot() {
-    // Step 1: Create an array to store indices of alive enemies
     let aliveEnemiesIndices = [];
-
-    // Step 2: Iterate through enemiesArray and push alive enemy indices into the array
     for (let i = 0; i < enemiesArray.length; i++) {
         for (let j = 0; j < enemiesArray[i].length; j++) {
             if (enemiesArray[i][j].alive) {
@@ -606,14 +589,12 @@ function randomAliveEnemyToShoot() {
         }
     }
 
-    // Step 3: Check if there are alive enemies and generate a random index
     if (aliveEnemiesIndices.length > 0) {
         let randomIndex = Math.floor(Math.random() * aliveEnemiesIndices.length);
         let randomEnemyIndex = aliveEnemiesIndices[randomIndex];
         let row = randomEnemyIndex[0];
         let col = randomEnemyIndex[1];
 
-        // Step 4: Use the randomly selected alive enemy index to perform shooting action
         let randomEnemy = enemiesArray[row][col];
         return randomEnemy;
     } else {
@@ -638,7 +619,6 @@ function updateShootPlayerPosition(curShot) {
             ((curShot.x <= (spacehero.x + playerSizeWidth)) && ((curShot.x + shotSize) >= spacehero.x)) &&
             (curShot.y >= spacehero.y && curShot.y <= spacehero.y + playerSizeHeight)) {
             // Collision detected, mark the enemy as destroyed
-
             const playerHitSoundInstance = playerHitSound.cloneNode(); // Create a new audio instance
             playerHitSoundInstance.play(); // Play the sound
 
@@ -666,8 +646,6 @@ function updateShootPlayerPosition(curShot) {
 function drawShootPlayer(curShot) {
     if (curShot.shotAlive) {
         context.drawImage(enemyShotImage1, curShot.x, curShot.y, shotSize, shotSize);
-        // context.fillStyle = "white"; // Set color of the shot
-        // context.fillRect(curShot.x, curShot.y, shotSize, shotSize); // Draw a rectangle to represent the shot
     }
 }
 
@@ -755,43 +733,27 @@ function checkCollideWithClock() {
 }
 
 function showWinOrLoseMessage(message) {
-    // Clear the canvas
     context.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Set the font style for the win message
     context.font = "bold 50px 'Permanent Marker', cursive";
     context.fillStyle = 'white';
     context.textAlign = 'center';
-
-    // Add text shadow
     context.shadowColor = 'rgba(0, 0, 0, 0.5)';
     context.shadowBlur = 10;
     context.shadowOffsetX = 5;
     context.shadowOffsetY = 5;
-
-    // Write the win message on the canvas
     context.fillText(message, canvas.width / 2, 80);
 }
 
 function YouCanDoBetterMsg(message) {
-    // Clear the canvas
     context.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Set the initial font size
     let fontSize = 30;
-
-    // Set the font style for the win message
     context.font = `bold ${fontSize}px 'Permanent Marker', cursive`;
     context.fillStyle = 'white';
     context.textAlign = 'center';
-
-    // Add text shadow
     context.shadowColor = 'rgba(0, 0, 0, 0.5)';
     context.shadowBlur = 10;
     context.shadowOffsetX = 5;
     context.shadowOffsetY = 5;
-
-    // Write the win message on the canvas
     context.fillText(message, canvas.width / 2, 80);
 }
 
@@ -849,88 +811,83 @@ modalOverlay.addEventListener('click', function (event) {
 function saveScore(activeUser, score, gameStatus) {
     // Find the user object in the database based on the username
     var user = database.find(function (user) {
-      return user.username === activeUser;
+        return user.username === activeUser;
     });
-  
+
     // If user is found, add the score with timestamp and game status to their scores array
     if (user) {
-      var currentTime = new Date(); // Get the current time
-      var scoreObject = {
-        score: score,
-        timestamp: currentTime,
-        gameStatus: gameStatus // Add game status to score object
-      };
-      user.scores.push(scoreObject);
+        var currentTime = new Date();
+        var scoreObject = {
+            score: score,
+            timestamp: currentTime,
+            gameStatus: gameStatus
+        };
+        user.scores.push(scoreObject);
     }
-  }
+}
 
 // Function to display history of scores for the active user
 function displayScoreHistory(activeUser) {
-    // Find the user object in the database based on the username
     var user = database.find(function (user) {
-      return user.username === activeUser;
+        return user.username === activeUser;
     });
-  
-    // If user is found, display their score history on the canvas
+
     if (user) {
-      // Define table properties
-      var tableWidth = 600;
-      var tableHeight = (Math.min(user.scores.length, 10) + 1) * 30; // Rows + header, limit to 10 scores
-      var tableX = (canvas.width - tableWidth) / 2 + 120; // Center horizontally
-      var tableY = (canvas.height - tableHeight) / 2 +50; // Center vertically
-      var rowHeight = 30;
-      var colWidth = 200;
-      var headerColor = "white";
-      var rowColor = "white";
-      var textColor = "white";
-      var headerFont = "bold 20px fantasy";
-      var rowFont = "16px fantasy";
-  
-      // Draw table header
-      context.fillStyle = headerColor;
-      context.font = headerFont;
-      context.fillStyle = textColor; // Set text color
-      context.fillText("Date", tableX, tableY);
-      context.fillText("Score", tableX + colWidth, tableY);
-      context.fillText("Status", tableX + colWidth * 2, tableY); // Display game status header
-  
-      // Draw table rows
-      context.fillStyle = rowColor;
-      context.font = rowFont;
-      context.fillStyle = textColor; // Set text color
-      for (var i = 0; i < Math.min(user.scores.length, 10); i++) {
-        var scoreObject = user.scores[user.scores.length - i - 1]; // Get score object from the end of the array
-        var score = scoreObject.score;
-        var timestamp = scoreObject.timestamp;
-        var gameStatus = scoreObject.gameStatus; // Get game status from score object
-        var rowY = tableY + (i + 1) * rowHeight;
-        if (i === 0) {
-          // Mark the last score with a special color
-          context.fillStyle = "red";
-          context.fillText(timestamp.toLocaleString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-            hour: "numeric",
-            minute: "numeric",
-            second: "numeric"
-          }), tableX, rowY);
-          context.fillText(score, tableX + colWidth, rowY);
-          context.fillText(gameStatus, tableX + colWidth * 2, rowY); // Display game status
-          context.fillStyle = textColor; // Reset text color
-        } else {
-          context.fillText(timestamp.toLocaleString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-            hour: "numeric",
-            minute: "numeric",
-            second: "numeric"
-          }), tableX, rowY);
-          context.fillText(score, tableX + colWidth, rowY);
-          context.fillText(gameStatus, tableX + colWidth * 2, rowY); // Display game status
+        var tableWidth = 600;
+        var tableHeight = (Math.min(user.scores.length, 10) + 1) * 30;
+        var tableX = (canvas.width - tableWidth) / 2 + 120;
+        var tableY = (canvas.height - tableHeight) / 2 + 50;
+        var rowHeight = 30;
+        var colWidth = 200;
+        var headerColor = "white";
+        var rowColor = "white";
+        var textColor = "white";
+        var headerFont = "bold 20px fantasy";
+        var rowFont = "16px fantasy";
+
+        context.fillStyle = headerColor;
+        context.font = headerFont;
+        context.fillStyle = textColor;
+        context.fillText("Date", tableX, tableY);
+        context.fillText("Score", tableX + colWidth, tableY);
+        context.fillText("Status", tableX + colWidth * 2, tableY);
+
+        context.fillStyle = rowColor;
+        context.font = rowFont;
+        context.fillStyle = textColor;
+        for (var i = 0; i < Math.min(user.scores.length, 10); i++) {
+            var scoreObject = user.scores[user.scores.length - i - 1]; // Get score object from the end of the array
+            var score = scoreObject.score;
+            var timestamp = scoreObject.timestamp;
+            var gameStatus = scoreObject.gameStatus;
+            var rowY = tableY + (i + 1) * rowHeight;
+            if (i === 0) {
+                // Mark the last score with a special color
+                context.fillStyle = "red";
+                context.fillText(timestamp.toLocaleString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    second: "numeric"
+                }), tableX, rowY);
+                context.fillText(score, tableX + colWidth, rowY);
+                context.fillText(gameStatus, tableX + colWidth * 2, rowY);
+                context.fillStyle = textColor;
+            } else {
+                context.fillText(timestamp.toLocaleString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    second: "numeric"
+                }), tableX, rowY);
+                context.fillText(score, tableX + colWidth, rowY);
+                context.fillText(gameStatus, tableX + colWidth * 2, rowY);
+            }
         }
-      }
     }
-  }
-  
+}
+
