@@ -1,5 +1,3 @@
-
-//Vars 
 var activeUser; // after log in this will be the active user
 var userTimeInput;
 
@@ -8,12 +6,7 @@ var database = [
     username: "p",
     password: "testuser",
     scores: [],
-  },
-  {
-    username: "a",
-    password: "a",
-    scores: [],
-  },
+  }
 ];
 // Function to add event listener for game controls
 function addGameControlsListener() {
@@ -30,21 +23,17 @@ function gameControlsHandler(e) {
   e.preventDefault();
   updatePlayerPosition(e.keyCode);
 }
-// const modal1 = document.querySelector('#myDialog');
-// const openModal1 = document.querySelector('.open-button');
-// const closeModal1 = document.querySelector('.close-button');
-
 
 // Menu Div
 var div_visible = "Welcome_div";
 function changeDiv(div_id) {
-  if(div_visible=="sign_in"){
+  if (div_visible == "sign_in") {
     resetFormSignIn();
   }
-  if(div_visible=="log_in"){
+  if (div_visible == "log_in") {
     resetLogin();
   }
-  
+
 
   if (div_id == "play_game") {
     document.getElementById(div_visible).style.display = 'none';
@@ -64,7 +53,7 @@ function changeDiv(div_id) {
     document.body.style.background = "url('photos/space2.gif')";
     document.body.style.backgroundSize = 'cover';
   }
-  if(div_visible=="configuration"){
+  if (div_visible == "configuration") {
     resetConfig();
   }
 }
@@ -89,7 +78,7 @@ function model_dialog_close() {
   document.getElementById("myDialog").close();
 }
 
-document.getElementById("myDialog").addEventListener("click", function(event) {
+document.getElementById("myDialog").addEventListener("click", function (event) {
   // Close the dialog if the click target is the overlay element
   if (event.target == this) {
     this.close();
@@ -104,7 +93,7 @@ function insta_dialog_close() {
   document.getElementById("myInstraction").close();
 }
 
-document.getElementById("myInstraction").addEventListener("click", function(event) {
+document.getElementById("myInstraction").addEventListener("click", function (event) {
   // Close the dialog if the click target is the overlay element
   if (event.target == this) {
     this.close();
@@ -142,11 +131,11 @@ function isUserValid(user, pass) {
   alert("User does not exist");
   return false;
 }
-function cancelLogIn(){
+function cancelLogIn() {
   resetLogin();
   changeDiv('Welcome_div');
 }
-function resetLogin(){
+function resetLogin() {
   document.getElementById("uname").value = "";
   document.getElementById("psw").value = "";
 }
@@ -406,7 +395,6 @@ function checkConfigurationInputCorrect() {
 
 // Add event listener to capture user's key selection
 document.getElementById('selectKey').addEventListener('change', function (e) {
-  // Update shooting key with user's selected value
   shootingKey = e.target.value.toLowerCase();
 });
 
