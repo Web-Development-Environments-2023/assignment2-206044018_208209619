@@ -4,7 +4,7 @@ Spaceships is a web-based game where players control a spaceship and try to defe
 
 Good luck and have fun playing Spaceships Game!
 
-link to the game: https://web-development-environments-2023.github.io/206044018_208209619/
+link to the game: https://web-development-environments-2023.github.io/assignment2-206044018_208209619/
 
 Creators: 
 Reut Mealem 206044018
