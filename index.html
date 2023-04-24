@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- <!DOCTYPE html> -->
+<html>
 <link rel="stylesheet" type="text/css" href="style.css" />
 
 <!-- <--------google fonts link------------->
@@ -18,430 +18,439 @@
 </head>
 
 <body>
-    <div id="header">
-        <div class="navbar">
-            <div class="logo"> <img src="photos\logo.gif" width="70" height="70"> </div>
-            <ul class="links">
-                <li class="menu">
-                    <button class="menu_item" onclick="insta_dialog_open()"> Game Instructions </button>
-                </li>
-                <li class="menu">
-                    <button class="menu_item" onclick="model_dialog_open()"> About </button>
-                </li>
-                <li class="menu">
-                    <button class="menu_item" onclick="changeDiv('log_in')"> Log in </button>
-                </li>
-                <li class="menu">
-                    <button class="menu_item" onclick="changeDiv('sign_in')"> Sign Up</button>
-                </li>
-
-                <li class="menu">
-                    <button class="menu_item" onclick="changeToHome('Welcome_div')"> Home </button>
-                </li>
-
-            </ul>
-        </div>
-    </div>
-
-    <div id="main">
-        <!-- Welcome -->
-
-        <div class="welcome" id="Welcome_div" style="display:block;">
-
-            <div class="W_container">
-
-                <div class="W_header">
-                    <img src="./photos/reut.png" alt="Reut Mealem 206044018" width=20% />
-                    </br>
-                    <img src="./photos/lidor.png" alt="Lidor Avital 208209619" width=20% />
-                </div>
-
-                <div class="game_name">
-                    <!-- SpaceShip
-                    <br>
-                    Game -->
-                    <img src="./photos/spaceships.png" alt="Spaceships" width=40% />
-                    </br>
-                    <img src="./photos/game.png" alt="Game" width=18% />
-
-                </div>
-
-                <div class="game_img">
-
-                </div>
-
-                <div class="sign_log">
-                    <button class="W_item" onclick="changeDiv('sign_in')">Sign Up</button>
-                    <button class="W_item" onclick="changeDiv('log_in')">Login</button>
-                </div>
-
-
-            </div>
-        </div>
-
-        <!--------------------------- Sign in ------------------------------>
-        <div id="sign_in" style="display:none;">
-
-            <form id="sign_in_form">
-                <div class="container">
-                    <h1>Sign Up</h1>
-
-                    <label for="username"><b>User Name</b></label>
-                    <br />
-                    <input type="text" placeholder="Enter Your User Name" name="username" id="username" required>
-                    <br />
-                    <br />
-
-                    <label for="password"><b>Password</b></label>
-                    <br />
-                    <input type="password" name="password" id="password" minlength="8"
-                        pattern="(?=.[a-zA-Z])(?=.[0-9]).*"
-                        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required>
-                    <br />
-                    <br />
-
-                    <label for="confirm_password"><b>Confirm Password</b></label>
-                    <br />
-                    <input type="password" name="confirm_password" id="confirm_password" equalTo="#password"
-                        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required>
-                    <br />
-                    <br />
-
-                    <label for="firstname"><b>First Name</b></label>
-                    <br />
-                    <input type="text" placeholder="Enter Your First Name" name="firstname" id="firstname" required>
-                    <br />
-                    <br />
-
-                    <label for="lastname"><b>Last Name</b></label>
-                    <br />
-                    <input type="text" placeholder="Enter Your Last Name" name="lastname" id="lastname" required>
-                    <br />
-                    <br />
-
-                    <label for="email"><b>Email</b></label>
-                    <br />
-                    <input type="email" placeholder="Enter Your Email" name="email" id="email" required>
-                    <br />
-                    <br />
-
-                    <label for="birthday"><b>Birthday</b></label>
-                    <br />
-                    <input type="date" id="birthday" name="birthday" required>
-
-                    <!-- <br/> -->
-                    <br />
-                    <br />
-                    <button type="submit" class="B_left">Sign up</button>
-                    <button type="button" class="B_right" onclick="cancelSignin()">Cancel</button>
-
-                </div>
-            </form>
-
-        </div>
-
-
-        <!-- Log in -->
-
-        <div id="log_in" style="display:none;">
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <div class="container">
-
-                <h1>Login</h1>
-                <ul>
-                    <li>
-                        <label for="uname"><b>Username</b></label>
-                        <br />
-                        <input id="uname" type="text" placeholder="Enter Username" name="uname" required>
+    <!-- <div class="body_container"> -->
+        <div id="header">
+            <div class="navbar">
+                <div class="logo"> <img src="photos\logo.gif" width="70" height="70"> </div>
+                <ul class="links">
+                    <li class="menu">
+                        <button class="menu_item" onclick="insta_dialog_open()"> Game Instructions </button>
                     </li>
-                    <li>
-                        <br /><br />
-                        <label for="psw"><b>Password</b></label>
-                        <br />
-                        <input id="psw" type="password" placeholder="Enter Password" name="psw" required>
+                    <li class="menu">
+                        <button class="menu_item" onclick="model_dialog_open()"> About </button>
                     </li>
-                    <li>
-                        <br /><br /><br />
-                        <button type="button" class="B_left" onclick="LogIn()">Login</button>
-                        <button type="button" class="B_right" onclick="cancelLogIn()">Cancel</button>
+                    <li class="menu">
+                        <button class="menu_item" onclick="changeDiv('log_in')"> Log in </button>
                     </li>
+                    <li class="menu">
+                        <button class="menu_item" onclick="changeDiv('sign_in')"> Sign Up</button>
+                    </li>
+
+                    <li class="menu">
+                        <button class="menu_item" onclick="changeToHome('Welcome_div')"> Home </button>
+                    </li>
+
                 </ul>
             </div>
-
-
         </div>
 
+        <div id="main">
+            <!-- Welcome -->
 
-        <!-- Configuration -->
-        <div id="configuration" style="display:none;">
+            <div class="welcome" id="Welcome_div" style="display:block;">
 
-            <div class="conf_container">
+                <div class="W_container">
 
-                <div class="conf">
-                    <div class="conf_container"> configuration: </div>
-                    <br /><br />
+                    <div class="W_header">
+                        <img src="./photos/reut.png" alt="Reut Mealem 206044018" width=20% />
+                        </br>
+                        <img src="./photos/lidor.png" alt="Lidor Avital 208209619" width=20% />
+                    </div>
 
+                    <div class="game_name">
+                        <!-- SpaceShip
+                        <br>
+                        Game -->
+                        <img src="./photos/spaceships.png" alt="Spaceships" width=40% />
+                        </br>
+                        <img src="./photos/game.png" alt="Game" width=18% />
 
-                    Choose Player Character:
-                    <br />
-                    <button type="button" class="config_button" id="playerButton1" onclick="ChoosePlayer(1)"></button>
-                    <button type="button" class="config_button" id="playerButton2" onclick="ChoosePlayer(2)"></button>
-                    <button type="button" class="config_button" id="playerButton3" onclick="ChoosePlayer(3)"></button>
-                    <br /><br />
+                    </div>
 
+                    <div class="game_img">
 
-                    Choose bullet for Player:
-                    <br />
-                    <button type="button" class="config_button" id="bulletButton1" onclick="Chooseshot(2)"></button>
-                    <button type="button" class="config_button" id="bulletButton2" onclick="Chooseshot(3)"></button>
-                    <button type="button" class="config_button" id="bulletButton3" onclick="Chooseshot(4)"></button>
-                    <br /><br />
+                    </div>
 
-                    Choose bullet for enemy:
-                    <br />
-                    <button type="button" class="config_button" id="EbulletButton1" onclick="ChooseshotE(5)"></button>
-                    <button type="button" class="config_button" id="EbulletButton2" onclick="ChooseshotE(6)"></button>
-                    <button type="button" class="config_button" id="EbulletButton3" onclick="ChooseshotE(7)"></button>
-                    <br /><br />
+                    <div class="sign_log">
+                        <button class="W_item" onclick="changeDiv('sign_in')">Sign Up</button>
+                        <button class="W_item" onclick="changeDiv('log_in')">Login</button>
+                    </div>
 
-                    Choose Keyboard For Shooting (a-z or space):
-                    <br />
-                    <select id="selectKey">
-                        <option value="">Select a key for shooting</option>
-                        <option value=" ">Space</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
-                        <option value="I">I</option>
-                        <option value="J">J</option>
-                        <option value="K">K</option>
-                        <option value="L">L</option>
-                        <option value="M">M</option>
-                        <option value="N">N</option>
-                        <option value="O">O</option>
-                        <option value="P">P</option>
-                        <option value="Q">Q</option>
-                        <option value="R">R</option>
-                        <option value="S">S</option>
-                        <option value="T">T</option>
-                        <option value="U">U</option>
-                        <option value="V">V</option>
-                        <option value="W">W</option>
-                        <option value="X">X</option>
-                        <option value="Y">Y</option>
-                        <option value="Z">Z</option>
-                    </select> <br /><br />
-                    Choose Seconds Time For Game:
-                    <br />
-                    <input type="number" id="inputTime" min="120" max="300" step="15" value="120"> seconds
-
-                    <br /><br />
-
-                    <button type="button" id="play_game_btn" onclick="StartGame()">Play Game</button>
 
                 </div>
+            </div>
+
+            <!--------------------------- Sign in ------------------------------>
+            <div id="sign_in" style="display:none;">
+
+                <form id="sign_in_form">
+                    <div class="container">
+                        <h1>Sign Up</h1>
+
+                        <label for="username"><b>User Name</b></label>
+                        <br />
+                        <input type="text" placeholder="Enter Your User Name" name="username" id="username" required>
+                        <br />
+                        <br />
+
+                        <label for="password"><b>Password</b></label>
+                        <br />
+                        <input type="password" name="password" id="password" minlength="8"
+                            pattern="(?=.[a-zA-Z])(?=.[0-9]).*"
+                            placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required>
+                        <br />
+                        <br />
+
+                        <label for="confirm_password"><b>Confirm Password</b></label>
+                        <br />
+                        <input type="password" name="confirm_password" id="confirm_password" equalTo="#password"
+                            placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required>
+                        <br />
+                        <br />
+
+                        <label for="firstname"><b>First Name</b></label>
+                        <br />
+                        <input type="text" placeholder="Enter Your First Name" name="firstname" id="firstname" required>
+                        <br />
+                        <br />
+
+                        <label for="lastname"><b>Last Name</b></label>
+                        <br />
+                        <input type="text" placeholder="Enter Your Last Name" name="lastname" id="lastname" required>
+                        <br />
+                        <br />
+
+                        <label for="email"><b>Email</b></label>
+                        <br />
+                        <input type="email" placeholder="Enter Your Email" name="email" id="email" required>
+                        <br />
+                        <br />
+
+                        <label for="birthday"><b>Birthday</b></label>
+                        <br />
+                        <input type="date" id="birthday" name="birthday" required>
+
+                        <!-- <br/> -->
+                        <br />
+                        <br />
+                        <button type="submit" class="B_left">Sign up</button>
+                        <button type="button" class="B_right" onclick="cancelSignin()">Cancel</button>
+
+                    </div>
+                </form>
 
             </div>
-        </div>
 
 
-        <!-- Play Game -->
-        <div id="play_game" style="display:none;">
-            <div class="game_container">
+            <!-- Log in -->
 
-                <div class="canvas_container">
-                    <canvas id="Canvas" class="canvas" width="900" height="550"></canvas>
+            <div id="log_in" style="display:none;">
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <div class="container">
+
+                    <h1>Login</h1>
+                    <ul>
+                        <li>
+                            <label for="uname"><b>Username</b></label>
+                            <br />
+                            <input id="uname" type="text" placeholder="Enter Username" name="uname" required>
+                        </li>
+                        <li>
+                            <br /><br />
+                            <label for="psw"><b>Password</b></label>
+                            <br />
+                            <input id="psw" type="password" placeholder="Enter Password" name="psw" required>
+                        </li>
+                        <li>
+                            <br /><br /><br />
+                            <button type="button" class="B_left" onclick="LogIn()">Login</button>
+                            <button type="button" class="B_right" onclick="cancelLogIn()">Cancel</button>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+
+
+            <!-- Configuration -->
+            <div id="configuration" style="display:none;">
+
+                <div class="conf_container">
+
+                    <div class="conf">
+                        <div class="conf_container"> configuration: </div>
+                        <br /><br />
+
+
+                        Choose Player Character:
+                        <br />
+                        <button type="button" class="config_button" id="playerButton1" onclick="ChoosePlayer(1)"></button>
+                        <button type="button" class="config_button" id="playerButton2" onclick="ChoosePlayer(2)"></button>
+                        <button type="button" class="config_button" id="playerButton3" onclick="ChoosePlayer(3)"></button>
+                        <br /><br />
+
+
+                        Choose bullet for Player:
+                        <br />
+                        <button type="button" class="config_button" id="bulletButton1" onclick="Chooseshot(2)"></button>
+                        <button type="button" class="config_button" id="bulletButton2" onclick="Chooseshot(3)"></button>
+                        <button type="button" class="config_button" id="bulletButton3" onclick="Chooseshot(4)"></button>
+                        <br /><br />
+
+                        Choose bullet for enemy:
+                        <br />
+                        <button type="button" class="config_button" id="EbulletButton1" onclick="ChooseshotE(5)"></button>
+                        <button type="button" class="config_button" id="EbulletButton2" onclick="ChooseshotE(6)"></button>
+                        <button type="button" class="config_button" id="EbulletButton3" onclick="ChooseshotE(7)"></button>
+                        <br /><br />
+
+                        Choose Keyboard For Shooting (a-z or space):
+                        <br />
+                        <select id="selectKey">
+                            <option value="">Select a key for shooting</option>
+                            <option value=" ">Space</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="G">G</option>
+                            <option value="H">H</option>
+                            <option value="I">I</option>
+                            <option value="J">J</option>
+                            <option value="K">K</option>
+                            <option value="L">L</option>
+                            <option value="M">M</option>
+                            <option value="N">N</option>
+                            <option value="O">O</option>
+                            <option value="P">P</option>
+                            <option value="Q">Q</option>
+                            <option value="R">R</option>
+                            <option value="S">S</option>
+                            <option value="T">T</option>
+                            <option value="U">U</option>
+                            <option value="V">V</option>
+                            <option value="W">W</option>
+                            <option value="X">X</option>
+                            <option value="Y">Y</option>
+                            <option value="Z">Z</option>
+                        </select> <br /><br />
+                        Choose Seconds Time For Game:
+                        <br />
+                        <input type="number" id="inputTime" min="120" max="300" step="15" value="120"> 
+
+                        <br /><br />
+
+                        <button type="button" id="play_game_btn" onclick="StartGame()">Play Game</button>
+
+                    </div>
 
                 </div>
-                <div id="gameOverModal" class="modal" style="display: none;">
-                    <div class="modal-content" style="font-family:fantasy;">
-                        <p>Do you want to redefine configuration?</p>
-                        <div class="button-container">
-                            <button id="btnYes">Yes</button>
-                            <button id="btnNo">No</button>
+            </div>
+
+
+            <!-- Play Game -->
+            <div id="play_game" style="display:none;">
+                <div class="game_container">
+
+                    <div class="canvas_container">
+                        <canvas id="Canvas" class="canvas" width="900" height="550"></canvas>
+
+                    </div>
+                    <div id="gameOverModal" class="modal" style="display: none;">
+                        <div class="modal-content" style="font-family:fantasy;">
+                            <p>Do you want to redefine configuration?</p>
+                            <div class="button-container">
+                                <button id="btnYes">Yes</button>
+                                <button id="btnNo">No</button>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="game_features">
+
+                        <label class="feature_button">USER NAME:</label>
+                        <br />
+                        <label id="featureUser" type="text"></label>
+                        <br />
+                        <br />
+                        <label class="feature_button">TIME:</label>
+                        <br />
+                        <label id="featureTime" type="text"></label>
+                        <br />
+                        <br />
+                        <label class="feature_button">SCORE:</label>
+                        <br />
+                        <label id="featureScore" type="text"></label>
+                        <br />
+                        <br />
+                        <label class="feature_button">LIVES:</label>
+                        <br />
+                        <label id="featureLive" type="text"></label>
+                        <br />
+                        <audio id="backgroundMusic" src="photos/background_music.mp3" loop></audio>
+                        <br />
+                        <br />
+                        <img id="playButton" src="./photos/playbutton.png" alt="Play" style="width: 30px; height: 30px;" />
+                        <img id="pauseButton" src="./photos/pausebutton.png" alt="Pause"
+                            style="width: 30px; height:30px;" />
+                        <br /><br>
+                        <button type="button" class="game_btn" id="new_game_btn">Start New Game</button>
+                        <br>
+                        <br>
+
+                        <button type="button" class="game_btn" onclick="exit_game()">Exit Game</button>
+
+
+
+
+                    </div>
+
+
+                    <div class="menu">
+
+                    </div>
+
                 </div>
+            </div>
 
-                <div class="game_features">
+            <div id="score" style="display:none;"> score</div>
 
-                    <label class="feature_button">USER NAME:</label>
-                    <br />
-                    <label id="featureUser" type="text"></label>
-                    <br />
-                    <br />
-                    <label class="feature_button">TIME:</label>
-                    <br />
-                    <label id="featureTime" type="text"></label>
-                    <br />
-                    <br />
-                    <label class="feature_button">SCORE:</label>
-                    <br />
-                    <label id="featureScore" type="text"></label>
-                    <br />
-                    <br />
-                    <label class="feature_button">LIVES:</label>
-                    <br />
-                    <label id="featureLive" type="text"></label>
-                    <br />
-                    <audio id="backgroundMusic" src="photos/background_music.mp3" loop></audio>
-                    <br />
-                    <br />
-                    <img id="playButton" src="./photos/playbutton.png" alt="Play" style="width: 30px; height: 30px;" />
-                    <img id="pauseButton" src="./photos/pausebutton.png" alt="Pause"
-                        style="width: 30px; height:30px;" />
-                    <br /><br>
-                    <button type="button" class="game_btn" id="new_game_btn">Start New Game</button>
-                    <br>
-                    <br>
+            <!-- Model Dialog -->
 
-                    <button type="button" class="game_btn" onclick="exit_game()">Exit Game</button>
+            <div id="model_dialog" class="model">
+                <dialog id="myDialog">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="model_dialog_close()" data-dismiss="modal"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <p>
+                        In our enthralling game, players are granted a personalized gaming experience from the get-go,
+                        </br>
+                        as they have the freedom to choose their spaceship type, as well as the type of shots that they will
+                        wield.
+                        </br>
+                        This feature allows for a unique and tailored gameplay experience for each player, making each game
+                        session truly one-of-a-kind.
+
+                        </br> </br>
+                        To ensure that players are not left in the dark, we have incorporated comprehensive game
+                        instructions,
+                        </br>
+                        making it easy for players to familiarize themselves with the game mechanics and start playing with
+                        ease and confidence.
+                        </br>
+                        As an added bonus, we have included in-game power-ups that offer players a chance to enhance their
+                        gameplay.
+                        </br>
+                        By collecting the red heart that appears on the game board,
+                        </br>
+                        players can add an extra life, effectively prolonging their game time.
+                        </br>
+                        Additionally, players can add precious seconds to their game time by reaching the clock that also
+                        appears on the game board.
+                        </br>
+                        In addition, we use Jquery to validate the sign up process.
+
+                        </br></br> </br>
+                        With all these exciting features, our game promises to provide players with endless hours of
+                        exhilarating gameplay and a truly immersive gaming experience!!!
+                    </p>
 
 
+                    <!-- esc -->
+                    <!-- לחיצה על המסך -->
 
-
-                </div>
-
-
-                <div class="menu">
-
-                </div>
+                </dialog>
 
             </div>
-        </div>
 
-        <div id="score" style="display:none;"> score</div>
+            <div id="instraction_dialog" class="model">
+                <dialog id="myInstraction">
+                    <div class="Insta-header">
+                        <button type="button" class="close" onclick="insta_dialog_close()" data-dismiss="modal"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <p>
+                        <strong>Spaceships Game</strong><br><br>
+                        <strong>Objective:</strong> Kill all the enemies while surviving with at least one life until the
+                        timer runs out.<br><br>
+                        <strong>How to Play:</strong><br>
+                        1. Sign up and log in to the game.<br>
+                        2. Use the arrow keys to move your spaceship around the screen.<br>
+                        3. Choose a key to shoot with.<br>
+                        4. Customize your player image, your shots, and the enemy's shots.<br>
+                        5. Set the game timer (minimum is 120 seconds).<br>
+                        6. During the game, collect a heart to gain an additional life, and collect a clock to add 10
+                        seconds to the timer.<br>
+                        7. Shoot and destroy all enemies to win.<br>
+                        8. If the player dies, you lose the game.<br>
+                        9. If the time runs out, the score determines whether you win or lose. If the score is above 100,
+                        you win. If it's below 100, you lose.<br>
+                        10. Every 5 seconds, the speed of the enemies and their shots increases, making it more challenging
+                        as time passes.<br>
+                        11. After every game, a scores table will appear and show the score, the game status (win or lose),
+                        and the timestamp.<br>
+                        </br>
+                        <strong>Good luck and have fun playing Spaceships Game!</strong><br>
 
-        <!-- Model Dialog -->
+                    </p>
 
-        <div id="model_dialog" class="model">
-            <dialog id="myDialog">
-                <div class="modal-header">
-                    <button type="button" class="close" onclick="model_dialog_close()" data-dismiss="modal"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
-
-                <p>
-                    In our enthralling game, players are granted a personalized gaming experience from the get-go,
-                    </br>
-                    as they have the freedom to choose their spaceship type, as well as the type of shots that they will
-                    wield.
-                    </br>
-                    This feature allows for a unique and tailored gameplay experience for each player, making each game
-                    session truly one-of-a-kind.
-
-                    </br> </br>
-                    To ensure that players are not left in the dark, we have incorporated comprehensive game
-                    instructions,
-                    </br>
-                    making it easy for players to familiarize themselves with the game mechanics and start playing with
-                    ease and confidence.
-                    </br>
-                    As an added bonus, we have included in-game power-ups that offer players a chance to enhance their
-                    gameplay.
-                    </br>
-                    By collecting the red heart that appears on the game board,
-                    </br>
-                    players can add an extra life, effectively prolonging their game time.
-                    </br>
-                    Additionally, players can add precious seconds to their game time by reaching the clock that also
-                    appears on the game board.
-                    </br>
-                    In addition, we use Jquery to validate the sign up process.
-
-                    </br></br> </br>
-                    With all these exciting features, our game promises to provide players with endless hours of
-                    exhilarating gameplay and a truly immersive gaming experience!!!
-                </p>
-
-
-                <!-- esc -->
-                <!-- לחיצה על המסך -->
-
-            </dialog>
+                </dialog>
+            </div>
 
         </div>
+ 
 
-        <div id="instraction_dialog" class="model">
-            <dialog id="myInstraction">
-                <div class="Insta-header">
-                    <button type="button" class="close" onclick="insta_dialog_close()" data-dismiss="modal"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
-                <p>
-                    <strong>Spaceships Game</strong><br><br>
-                    <strong>Objective:</strong> Kill all the enemies while surviving with at least one life until the
-                    timer runs out.<br><br>
-                    <strong>How to Play:</strong><br>
-                    1. Sign up and log in to the game.<br>
-                    2. Use the arrow keys to move your spaceship around the screen.<br>
-                    3. Choose a key to shoot with.<br>
-                    4. Customize your player image, your shots, and the enemy's shots.<br>
-                    5. Set the game timer (minimum is 120 seconds).<br>
-                    6. During the game, collect a heart to gain an additional life, and collect a clock to add 10
-                    seconds to the timer.<br>
-                    7. Shoot and destroy all enemies to win.<br>
-                    8. If the player dies, you lose the game.<br>
-                    9. If the time runs out, the score determines whether you win or lose. If the score is above 100,
-                    you win. If it's below 100, you lose.<br>
-                    10. Every 5 seconds, the speed of the enemies and their shots increases, making it more challenging
-                    as time passes.<br>
-                    11. After every game, a scores table will appear and show the score, the game status (win or lose),
-                    and the timestamp.<br>
-                    </br>
-                    <strong>Good luck and have fun playing Spaceships Game!</strong><br>
+        <div id="footer">
 
-                </p>
+            <div class="icons">
+                <ul class="icons">
 
-            </dialog>
+                    <li> Contact Us:</li>
+                    <li>
+
+                        <a href="https://www.facebook.com/reut.mealem/"><i class="ri-facebook-box-fill"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.facebook.com/lidor.avital.1/"><i class="ri-facebook-box-fill"></i></a>
+                    </li>
+                    <li>
+                        <a href='https://instagram.com/reut_mealem?igshid=OTJhZDVkZWE='><i
+                                class="ri-instagram-line"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/av.lidor?igshid=YmMyMTA2M2Y="><i class="ri-instagram-line"></i></a>
+                    </li>
+                    <li>
+                        <a href='https://www.linkedin.com/in/reut-mealem-344141270/'><i
+                                class="ri-linkedin-box-fill"></i></a>
+                    </li>
+                    <li>
+                        <a href='https://www.linkedin.com/in/lidor-avital-58a719259/'><i
+                                class="ri-linkedin-box-fill"></i></a>
+                    </li>
+
+
+                </ul>
+
+            </div>
+            
+            <b>reutme@post.bgu.ac.il <b>
+
+            </br>
+
+            <b> lidoravi@post.bgu.ac.il</b>
+
         </div>
 
-    </div>
-
-    <div id="footer">
-
-        <div class="icons">
-            <ul class="icons">
-
-                <li> Contact Us:</li>
-                <li>
-
-                    <a href="https://www.facebook.com/reut.mealem/"><i class="ri-facebook-box-fill"></i></a>
-                </li>
-                <li>
-                    <a href="https://www.facebook.com/lidor.avital.1/"><i class="ri-facebook-box-fill"></i></a>
-                </li>
-                <li>
-                    <a href='https://instagram.com/reut_mealem?igshid=OTJhZDVkZWE='><i
-                            class="ri-instagram-line"></i></a>
-                </li>
-                <li>
-                    <a href="https://instagram.com/av.lidor?igshid=YmMyMTA2M2Y="><i class="ri-instagram-line"></i></a>
-                </li>
-                <li>
-                    <a href='https://www.linkedin.com/in/reut-mealem-344141270/'><i
-                            class="ri-linkedin-box-fill"></i></a>
-                </li>
-                <li>
-                    <a href='https://www.linkedin.com/in/lidor-avital-58a719259/'><i
-                            class="ri-linkedin-box-fill"></i></a>
-                </li>
-
-
-            </ul>
-        </div>
-
-    </div>
-    </div>
 
 
 
