@@ -16,11 +16,13 @@
 #myDialog::backdrop {
 	background: #0f0f0f;
 	opacity: .3;
+	font-family: fantasy;
 }
 
 #myInstraction::backdrop {
 	background: #0f0f0f;
 	opacity: .3;
+	font-family: fantasy;
 }
 
 button.close {
@@ -41,6 +43,7 @@ p {
 
 .model {
 	font-family: fantasy;
+	
 }
 
 /*  body  */
