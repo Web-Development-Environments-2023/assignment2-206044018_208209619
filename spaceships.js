@@ -217,7 +217,9 @@ $(document).ready(function () {
       database.push({
         username: user1,
         password: password1,
+        scores: [],
       },)
+      
       console.log(user1 + " and " + password1 + " added to the database");
       resetFormSignIn();
       changeDiv('Welcome_div');

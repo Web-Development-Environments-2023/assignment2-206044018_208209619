@@ -215,7 +215,7 @@ function new_game() {
     canvas.focus();
     StartedGame = true;
     reset();
-    intervalTimer = setInterval(game_loop, 1);
+    intervalTimer = setInterval(game_loop, 6);
     startTimer();
 
 };
