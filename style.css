@@ -1,16 +1,3 @@
-/* .body_container{
-	width: 100%;
-	height: 1000px;
-	left: 0;
-    top: 0;
-	bottom: 0;
-
-	/* margin: auto; */
-	/* display: grid;
-	grid-template-rows: 10% 90% 10%;
-	grid-template-columns: 100%; 
-} */ 
-
 
 /* model dialogs */
 #myDialog::backdrop {
@@ -49,7 +36,7 @@ p {
 /*  body  */
 body {
 	width: 95%;
-	height: 95%;
+	height: 97%;
 	/* margin: auto; */
 	display: grid;
 	grid-template-rows: 10% 80% 10%;
@@ -112,10 +99,11 @@ div#main {
 	grid-row: 3/span 1;
 	grid-column: 1/span 1;
 	color: white;
-	bottom: 0;
+	bottom: 0px;
 	text-align: center;
 	/* padding-top: 2%; */
 }
+
 
 
 li {
@@ -382,7 +370,8 @@ button.W_item:hover {
 	text-shadow: black 2px 1px 5px;
 	color: whitesmoke;
 }
-
+.B_right,
+.B_left,
 #sign_in button,
 #log_in button,
 #play_game_btn,
@@ -394,10 +383,10 @@ button.W_item:hover {
 	background-color: rgb(246, 246, 248);
 	/* background: black; */
 	color: white;
-	padding: 15px;
+	padding: 10px;
 	border-radius: 1em;
 	border: black;
-	font-size: 15px;
+	font-size: 10px;
 	text-align: center;
 	font-family: fantasy;
 	cursor: pointer;
@@ -412,7 +401,9 @@ button.W_item:hover {
 #play_game_btn:hover,
 .game_btn:hover,
 #btnYes:hover,
-#btnNo:hover {
+#btnNo:hover,
+.B_right:hover,
+.B_left:hover{
 	color: black;
 	background: linear-gradient(45deg, rgb(12, 102, 102), rgb(244, 244, 247), rgb(12, 124, 158));
 
@@ -434,21 +425,25 @@ button.W_item:hover {
 
 
 .B_left {
-	margin-right: 20px;
+	margin-right: 10px;
 }
 
 .B_right {
-	margin-left: 20px;
+	margin-left: 10px;
 }
 
 /* footer */
 .icons {
-	margin: auto;
+	/* margin: auto; */
 	font-family: fantasy;
-
+	font-size: 12px;
 	display: flex;
 	gap: 3rem;
+	padding-top: 2%;
+	
 }
+
+
 
 /* configuration */
 #inputTime,
